@@ -4,10 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.milionerzy.admin.AdminActivity;
+import com.example.milionerzy.model.Question;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,27 +29,51 @@ public class MainActivity extends AppCompatActivity {
     static List<String> listOfQuestionsAndAnswers = new ArrayList<>();
     static int numberOfQuestion =0;
     //static int numberOfQuestionInList = 0;
-    public String TrescPytania;
-    public String odpowiedzA;
-    public String odpowiedzB;
-    public String odpowiedzC;
-    public String odpowiedzD;
-    public String poprawnaOdpowiedz;
+    private Question question;
     //public String TrescPoprawnejOdpowiedzi;
     public int iloscPoprawnychOdpowiedzi;
     public int iloscBlednychOdpowiedzi;
+    private TextView numerPytania;
+    private TextView trescPytania;
+    private TextView answerA;
+    private TextView answerB;
+    private TextView answerC;
+    private TextView answerD;
+    private ConstraintLayout metalLayout;
+    private Button logAsAdminButton;
 
+    private void setLayoutComponents() {
+        metalLayout = findViewById(R.id.metalLayout);
+        numerPytania = findViewById(R.id.numberQuestion1);
+        trescPytania = findViewById(R.id.textView);
+        answerA = findViewById(R.id.textView6);
+        answerB = findViewById(R.id.textView5);
+        answerC = findViewById(R.id.textView4);
+        answerD = findViewById(R.id.textView3);
+        logAsAdminButton = findViewById(R.id.logAsAdminButton);
+        logAsAdminButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AdminActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        setLayoutComponents();
+        txtReader();
+
+        addQuestionsToList();
+        System.out.println(listOfNumbersOfQuestions.size());
+    }
 
 
     @SuppressLint("SetTextI18n")
     public void play(View view)  {
-        TextView trescPytania = findViewById(R.id.textView);
-        TextView numerPytania = findViewById(R.id.numberQuestion1);
-        TextView answerA = findViewById(R.id.textView6);
-        TextView answerB = findViewById(R.id.textView5);
-        TextView answerC = findViewById(R.id.textView4);
-        TextView answerD = findViewById(R.id.textView3);
-        ConstraintLayout metalLayout = findViewById(R.id.metalLayout);
         if(numberOfQuestion == listOfNumbersOfQuestions.size()) {
             metalLayout.setClickable(false);
             numerPytania.setVisibility(View.INVISIBLE);
@@ -57,23 +87,25 @@ public class MainActivity extends AppCompatActivity {
             answerD.setClickable(true);
 
             Log.i("klikniete", "button pressed");
-            numerPytania.setText("Pytanie " + (numberOfQuestion + 1));
-            TrescPytania = listOfQuestionsAndAnswers.get(listOfNumbersOfQuestions.get(numberOfQuestion));
-            trescPytania.setText(TrescPytania);
-            odpowiedzA = listOfQuestionsAndAnswers.get(listOfNumbersOfQuestions.get(numberOfQuestion)+1);
-            answerA.setText(odpowiedzA);
+
+            question.setContentOfQuestion(listOfQuestionsAndAnswers.get(listOfNumbersOfQuestions.get(numberOfQuestion)));
+
+            question.setAnswerA(listOfQuestionsAndAnswers.get(listOfNumbersOfQuestions.get(numberOfQuestion)+1));
+
             answerA.setBackgroundResource(R.drawable.guzik1);
-            odpowiedzB = listOfQuestionsAndAnswers.get(listOfNumbersOfQuestions.get(numberOfQuestion) + 2);
-            answerB.setText(odpowiedzB);
+            question.setAnswerB(listOfQuestionsAndAnswers.get(listOfNumbersOfQuestions.get(numberOfQuestion) + 2));
+
             answerB.setBackgroundResource(R.drawable.guzik1);
-            odpowiedzC = listOfQuestionsAndAnswers.get(listOfNumbersOfQuestions.get(numberOfQuestion) + 3);
-            answerC.setText(odpowiedzC);
+            question.setAnswerC(listOfQuestionsAndAnswers.get(listOfNumbersOfQuestions.get(numberOfQuestion) + 3));
+
             answerC.setBackgroundResource(R.drawable.guzik1);
-            odpowiedzD = listOfQuestionsAndAnswers.get(listOfNumbersOfQuestions.get(numberOfQuestion) + 4);
-            answerD.setText(odpowiedzD);
+            question.setAnswerD(listOfQuestionsAndAnswers.get(listOfNumbersOfQuestions.get(numberOfQuestion) + 4));
+
             answerD.setBackgroundResource(R.drawable.guzik1);
-            poprawnaOdpowiedz = listOfQuestionsAndAnswers.get(listOfNumbersOfQuestions.get(numberOfQuestion) + 5);
+            question.setCorrectAnswer(listOfQuestionsAndAnswers.get(listOfNumbersOfQuestions.get(numberOfQuestion) + 5));
             numberOfQuestion = numberOfQuestion + 1;
+
+            fillQuestionTextViews(question);
         }
 
         for (Integer integer : listOfNumbersOfQuestions) {
@@ -83,15 +115,17 @@ public class MainActivity extends AppCompatActivity {
         System.out.println(listOfQuestionsAndAnswers.get(58));
     }
 
+    private void fillQuestionTextViews(Question question) {
+        trescPytania.setText(question.getContentOfQuestion());
+        numerPytania.setText("Pytanie " + (numberOfQuestion + 1));
+        answerA.setText(question.getAnswerA());
+        answerB.setText(question.getAnswerB());
+        answerC.setText(question.getAnswerC());
+        answerD.setText(question.getAnswerD());
+    }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        txtReader();
+    private void fillQuestion(){
 
-        addQuestionsToList();
-        System.out.println(listOfNumbersOfQuestions.size());
     }
 
     public void txtReader(){
@@ -142,27 +176,27 @@ public class MainActivity extends AppCompatActivity {
         answerC.setClickable(false);
         answerD.setClickable(false);
 
-        if(view.getTag().toString().equals(poprawnaOdpowiedz)) {
-            trescPytania.setText("brawo poprawna odpowiedź.\n Kliknij aby odczytać następne pytanie");
-            iloscPoprawnychOdpowiedzi++;
-        }
-        else {
-            trescPytania.setText("Niestety błędna odpowiedź.\n Kliknij aby odczytać następne pytanie");
-            iloscBlednychOdpowiedzi++;
-        }
-
-        if(poprawnaOdpowiedz.equals("a"))
-            answerA.setBackgroundResource(R.drawable.correctanswer);
-        else answerA.setBackgroundResource(R.drawable.wronganswer);
-        if(poprawnaOdpowiedz.equals("b"))
-            answerB.setBackgroundResource(R.drawable.correctanswer);
-        else answerB.setBackgroundResource(R.drawable.wronganswer);
-        if(poprawnaOdpowiedz.equals("c"))
-            answerC.setBackgroundResource(R.drawable.correctanswer);
-        else answerC.setBackgroundResource(R.drawable.wronganswer);
-        if(poprawnaOdpowiedz.equals("d"))
-            answerD.setBackgroundResource(R.drawable.correctanswer);
-        else answerD.setBackgroundResource(R.drawable.wronganswer);
+//        if(view.getTag().toString().equals(poprawnaOdpowiedz)) {
+//            trescPytania.setText("brawo poprawna odpowiedź.\n Kliknij aby odczytać następne pytanie");
+//            iloscPoprawnychOdpowiedzi++;
+//        }
+//        else {
+//            trescPytania.setText("Niestety błędna odpowiedź.\n Kliknij aby odczytać następne pytanie");
+//            iloscBlednychOdpowiedzi++;
+//        }
+//
+//        if(poprawnaOdpowiedz.equals("a"))
+//            answerA.setBackgroundResource(R.drawable.correctanswer);
+//        else answerA.setBackgroundResource(R.drawable.wronganswer);
+//        if(poprawnaOdpowiedz.equals("b"))
+//            answerB.setBackgroundResource(R.drawable.correctanswer);
+//        else answerB.setBackgroundResource(R.drawable.wronganswer);
+//        if(poprawnaOdpowiedz.equals("c"))
+//            answerC.setBackgroundResource(R.drawable.correctanswer);
+//        else answerC.setBackgroundResource(R.drawable.wronganswer);
+//        if(poprawnaOdpowiedz.equals("d"))
+//            answerD.setBackgroundResource(R.drawable.correctanswer);
+//        else answerD.setBackgroundResource(R.drawable.wronganswer);
 
     }
 

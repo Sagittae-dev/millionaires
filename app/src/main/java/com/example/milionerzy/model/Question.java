@@ -10,6 +10,9 @@ public class Question {
     private String answerD;
     private String correctAnswer;
 
+    public Question() {
+    }
+
     public Question(String contentOfQuestion, String answerA, String answerB, String answerC, String answerD, String correctAnswer) {
         this.contentOfQuestion = contentOfQuestion;
         this.answerA = answerA;
