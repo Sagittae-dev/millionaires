@@ -18,10 +18,20 @@ public class QuestionValidator {
         fieldList.add(question.getAnswerD());
         fieldList.add(question.getCorrectAnswer());
         for (String field : fieldList){
-            if(field == null || field.isEmpty()){
+            if(field == null){
                 Log.i("QuestionValidator", "QuestionValidator exception");
                 throw new EmptyFieldException();
             }
+            else{
+                validateParticularField(field);
+            }
+        }
+    }
+
+    private void validateParticularField(String field) throws EmptyFieldException {
+        if(field.isEmpty() || field.trim().length() == 0){
+            Log.i("QuestionValidator", "QuestionValidator exception. Field can't be empty");
+            throw new EmptyFieldException();
         }
     }
 }
