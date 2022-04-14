@@ -25,8 +25,19 @@
         android:text="Provide correct answer"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/radioButton_group"
-        app:layout_constraintLeft_toLeftOf="@+id/radioButton_group"
-        app:layout_constraintEnd_toEndOf="@+id/radioButton_group"/>
+        app:layout_constraintStart_toEndOf="@+id/answerAeditText"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Button
+        android:id="@+id/goToQuestionDatabaseActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="database"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/addNewQuestionTitle"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"/>
 
     <EditText
         android:id="@+id/contentOfQuestionEditText"
@@ -115,7 +126,7 @@
             android:tag="B"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/answerBeditText"
-            android:layout_marginTop="18dp"/>
+            android:layout_marginTop="20dp"/>
 
         <RadioButton
             android:id="@+id/radioButton_C_isCorrect"
@@ -125,7 +136,7 @@
             android:tag="C"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/answerCeditText"
-            android:layout_marginTop="18dp"/>
+            android:layout_marginTop="20dp"/>
 
         <RadioButton
             android:id="@+id/radioButton_D_isCorrect"
@@ -135,7 +146,7 @@
             android:tag="D"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/answerDeditText"
-            android:layout_marginTop="18dp"/>
+            android:layout_marginTop="20dp"/>
     </RadioGroup>
 
     <Button
