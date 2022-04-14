@@ -54,13 +54,13 @@ public class AdminActivity extends AppCompatActivity {
         saveQuestionButton.setOnClickListener(v -> saveQuestion());
     }
 
-    private void saveQuestion(){
+    private void saveQuestion() {
         try {
             Question question = createQuestionFromEditTexts();
             questionService.addQuestion(question);
-            Toast.makeText(this,"Question saved succesfully",Toast.LENGTH_SHORT).show();
-        }catch(EmptyFieldException e){
-            Toast.makeText(this,"Fill all required fields and check correct answer",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Question saved succesfully", Toast.LENGTH_SHORT).show();
+        } catch (EmptyFieldException e) {
+            Toast.makeText(this, "Fill all required fields and check correct answer", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -68,7 +68,7 @@ public class AdminActivity extends AppCompatActivity {
         RadioButton radioButtonWithCorrectAnswer = findViewById(radioGroup.getCheckedRadioButtonId());
         if (radioButtonWithCorrectAnswer != null) {
             return radioButtonWithCorrectAnswer.getTag().toString();
-        }else {
+        } else {
             Log.i("Radiobutton", "Radiobuttons exception");
             throw new EmptyFieldException();
         }

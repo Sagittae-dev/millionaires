@@ -39,7 +39,7 @@ public class QuestionsDatabaseActivity extends AppCompatActivity {
             AllQuestionsListAdapter adapter = new AllQuestionsListAdapter(this, questionList);
             listOfQuestionsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             listOfQuestionsRecyclerView.setAdapter(adapter);
-        }catch(DatabaseException de){
+        } catch (DatabaseException de) {
             Log.i("DatabaseException", "Exception in getting data from database");
         }
     }

@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.milionerzy.R;
 import com.example.milionerzy.model.Question;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AllQuestionsListAdapter extends RecyclerView.Adapter<AllQuestionsListAdapter.ViewHolder> {

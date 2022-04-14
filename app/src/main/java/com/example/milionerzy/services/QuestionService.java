@@ -23,15 +23,15 @@ public class QuestionService {
     }
 
     public void addQuestion(Question question) throws EmptyFieldException {
-            questionValidator.validate(question);
-            databaseService.addQuestion(question);
+        questionValidator.validate(question);
+        databaseService.addQuestion(question);
     }
 
     public List<Question> getAllQuestions() throws DatabaseException {
         return databaseService.getAllQuestions();
     }
 
-    public void setDatabaseContext(Context context){
+    public void setDatabaseContext(Context context) {
         databaseService = new DatabaseService(context);
     }
 

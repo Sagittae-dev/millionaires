@@ -33,7 +33,7 @@ public class Question {
         this.correctAnswer = correctAnswer;
     }
 
-    public int getId(){
+    public int getId() {
         return id;
     }
 

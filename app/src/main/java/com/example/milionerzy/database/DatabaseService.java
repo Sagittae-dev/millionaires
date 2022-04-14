@@ -9,18 +9,12 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import com.example.milionerzy.admin.AdminActivity;
 import com.example.milionerzy.model.Question;
 
-import java.lang.annotation.Inherited;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-
-import dagger.BindsInstance;
-import dagger.Module;
-import dagger.Provides;
 
 public class DatabaseService extends SQLiteOpenHelper {
 
@@ -99,7 +93,7 @@ public class DatabaseService extends SQLiteOpenHelper {
                 listToReturn.add(question);
 
             } while (cursor.moveToNext());
-        }else throw new DatabaseException();
+        } else throw new DatabaseException();
         cursor.close();
         db.close();
         return listToReturn;
