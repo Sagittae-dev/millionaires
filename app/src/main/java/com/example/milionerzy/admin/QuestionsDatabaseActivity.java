@@ -1,11 +1,11 @@
 package com.example.milionerzy.admin;
 
+import android.os.Bundle;
+import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.util.Log;
 
 import com.example.milionerzy.DaggerQuestionServiceComponent;
 import com.example.milionerzy.QuestionServiceComponent;
@@ -31,7 +31,7 @@ public class QuestionsDatabaseActivity extends AppCompatActivity {
         questionService.setDatabaseContext(this);
         setRecyclerView();
     }
-
+    //TODO edit question method
     private void setRecyclerView() {
         try {
             List<Question> questionList = questionService.getAllQuestions();

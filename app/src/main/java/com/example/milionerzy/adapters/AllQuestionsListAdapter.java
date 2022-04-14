@@ -1,9 +1,11 @@
 package com.example.milionerzy.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,14 +13,17 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.milionerzy.DaggerQuestionServiceComponent;
+import com.example.milionerzy.QuestionServiceComponent;
 import com.example.milionerzy.R;
 import com.example.milionerzy.model.Question;
+import com.example.milionerzy.services.QuestionService;
 
 import java.util.List;
 
 public class AllQuestionsListAdapter extends RecyclerView.Adapter<AllQuestionsListAdapter.ViewHolder> {
-    Context context;
-    List<Question> questionsList;
+    private final Context context;
+    private final List<Question> questionsList;
 
     public AllQuestionsListAdapter(Context context, List<Question> questionsList) {
         this.context = context;
@@ -34,18 +39,12 @@ public class AllQuestionsListAdapter extends RecyclerView.Adapter<AllQuestionsLi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.contentOfQuestionTextView.setText(questionsList.get(position).getContentOfQuestion());
-        holder.answerATextView.setText(questionsList.get(position).getAnswerA());
-        holder.answerBTextView.setText(questionsList.get(position).getAnswerB());
-        holder.answerCTextView.setText(questionsList.get(position).getAnswerC());
-        holder.answerDTextView.setText(questionsList.get(position).getAnswerD());
-        holder.correctAnswerTextView.setText(questionsList.get(position).getCorrectAnswer());
-        holder.particularElementOfList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "Item: " + position, Toast.LENGTH_SHORT).show();
-            }
-        });
+        fillQuestionTextViews(holder, position);
+
+        holder.particularElementOfList.setOnClickListener(v ->
+                Toast.makeText(context, "Item: " + position, Toast.LENGTH_SHORT).show());
+
+        holder.removeButton.setOnClickListener(b -> removeQuestionFromDatabase(position));
     }
 
     @Override
@@ -53,7 +52,7 @@ public class AllQuestionsListAdapter extends RecyclerView.Adapter<AllQuestionsLi
         return questionsList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView contentOfQuestionTextView;
         TextView answerATextView;
         TextView answerBTextView;
@@ -61,6 +60,7 @@ public class AllQuestionsListAdapter extends RecyclerView.Adapter<AllQuestionsLi
         TextView answerDTextView;
         TextView correctAnswerTextView;
         ConstraintLayout particularElementOfList;
+        Button removeButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,6 +71,27 @@ public class AllQuestionsListAdapter extends RecyclerView.Adapter<AllQuestionsLi
             answerCTextView = itemView.findViewById(R.id.answerCTextView_DatabaseList);
             answerDTextView = itemView.findViewById(R.id.answerDTextView_DatabaseList);
             correctAnswerTextView = itemView.findViewById(R.id.correctAnswerTextView_DatabaseList);
+            removeButton = itemView.findViewById(R.id.removeQuestionFromDatabaseButton);
         }
+    }
+
+    private void fillQuestionTextViews(ViewHolder holder, final int position) {
+        holder.contentOfQuestionTextView.setText(questionsList.get(position).getContentOfQuestion());
+        holder.answerATextView.setText(questionsList.get(position).getAnswerA());
+        holder.answerBTextView.setText(questionsList.get(position).getAnswerB());
+        holder.answerCTextView.setText(questionsList.get(position).getAnswerC());
+        holder.answerDTextView.setText(questionsList.get(position).getAnswerD());
+        holder.correctAnswerTextView.setText(questionsList.get(position).getCorrectAnswer());
+    }
+
+    private void removeQuestionFromDatabase(int position) {
+        QuestionServiceComponent questionServiceComponent = DaggerQuestionServiceComponent.create();
+        QuestionService questionService = questionServiceComponent.getQuestionService();
+        questionService.setDatabaseContext(context);
+        int id = questionsList.get(position).getId();
+        Log.i("Id from adapter", "id: " + id);
+        questionService.deleteQuestion(id);
+        questionsList.remove(position);
+        this.notifyDataSetChanged();
     }
 }

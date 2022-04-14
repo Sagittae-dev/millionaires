@@ -3,4 +3,6 @@
     <string name="milionerzy_quiz">Milionerzy - Quiz</string>
     <string name="startGameButtonText">ZACZNIJ GRE !</string>
     <string name="mainActivityTitleTextView">Witaj w grze "Milionerzy", naciśnij przycisk aby rozpocząć grę </string>
+    <string name="edit">edit</string>
+    <string name="rmv">rmv</string>
 </resources>

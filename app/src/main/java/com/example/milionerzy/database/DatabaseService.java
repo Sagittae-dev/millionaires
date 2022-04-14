@@ -74,8 +74,6 @@ public class DatabaseService extends SQLiteOpenHelper {
     public List<Question> getAllQuestions() throws DatabaseException {
         List<Question> listToReturn = new ArrayList<>();
         String query = "SELECT * FROM " + QUESTIONS;
-//        AdminActivity adminActivity = new AdminActivity();
-//        Context context = adminActivity.getApplicationContext();
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
@@ -97,5 +95,17 @@ public class DatabaseService extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return listToReturn;
+    }
+
+    public void deleteQuestion(int id) {
+        try {
+            String query = " DELETE FROM " + QUESTIONS + " WHERE ID = " + id;
+            SQLiteDatabase db = getWritableDatabase();
+            db.execSQL(query);
+            Log.i("DatabaseService", "query executed");
+            db.close();
+        } catch (Exception e) {
+            Log.i("DatabaseService", "Problem with deleteQuestion method");
+        }
     }
 }
