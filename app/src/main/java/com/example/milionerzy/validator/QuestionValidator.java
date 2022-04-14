@@ -7,7 +7,13 @@ import com.example.milionerzy.model.Question;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class QuestionValidator {
+
+    @Inject
+    public QuestionValidator() {
+    }
 
     public void validate(Question question) throws EmptyFieldException {
         List<String> fieldList = new ArrayList<>();

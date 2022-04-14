@@ -3,6 +3,7 @@ package com.example.milionerzy.model;
 import java.util.Objects;
 
 public class Question {
+    private int id;
     private String contentOfQuestion;
     private String answerA;
     private String answerB;
@@ -20,6 +21,24 @@ public class Question {
         this.answerC = answerC;
         this.answerD = answerD;
         this.correctAnswer = correctAnswer;
+    }
+
+    public Question(int id, String contentOfQuestion, String answerA, String answerB, String answerC, String answerD, String correctAnswer) {
+        this.id = id;
+        this.contentOfQuestion = contentOfQuestion;
+        this.answerA = answerA;
+        this.answerB = answerB;
+        this.answerC = answerC;
+        this.answerD = answerD;
+        this.correctAnswer = correctAnswer;
+    }
+
+    public int getId(){
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getContentOfQuestion() {
@@ -75,7 +94,8 @@ public class Question {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Question question = (Question) o;
-        return Objects.equals(contentOfQuestion, question.contentOfQuestion) &&
+        return id == question.id &&
+                Objects.equals(contentOfQuestion, question.contentOfQuestion) &&
                 Objects.equals(answerA, question.answerA) &&
                 Objects.equals(answerB, question.answerB) &&
                 Objects.equals(answerC, question.answerC) &&
@@ -85,6 +105,6 @@ public class Question {
 
     @Override
     public int hashCode() {
-        return Objects.hash(contentOfQuestion, answerA, answerB, answerC, answerD, correctAnswer);
+        return Objects.hash(id, contentOfQuestion, answerA, answerB, answerC, answerD, correctAnswer);
     }
 }
