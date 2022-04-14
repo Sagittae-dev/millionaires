@@ -1,6 +1,7 @@
 package com.example.milionerzy.services;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.milionerzy.database.DatabaseException;
 import com.example.milionerzy.database.DatabaseService;
@@ -22,6 +23,10 @@ public class QuestionService {
         this.questionValidator = questionValidator;
     }
 
+    public void setDatabaseContext(Context context) {
+        databaseService = new DatabaseService(context);
+    }
+
     public void addQuestion(Question question) throws EmptyFieldException {
         questionValidator.validate(question);
         databaseService.addQuestion(question);
@@ -31,8 +36,8 @@ public class QuestionService {
         return databaseService.getAllQuestions();
     }
 
-    public void setDatabaseContext(Context context) {
-        databaseService = new DatabaseService(context);
+    public void deleteQuestion(int id) {
+        databaseService.deleteQuestion(id);
+        Log.i("QuestionService", "deleteQuestion invoked ! ");
     }
-
 }

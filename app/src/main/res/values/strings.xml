@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Milionerzy</string>
     <string name="milionerzy_quiz">Milionerzy - Quiz</string>
+    <string name="edit">edit</string>
+    <string name="rmv">rmv</string>
 </resources>
