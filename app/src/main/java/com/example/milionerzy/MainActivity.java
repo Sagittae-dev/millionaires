@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.milionerzy.admin.AdminActivity;
+import com.example.milionerzy.game.GameActivity;
 import com.example.milionerzy.model.Question;
 
 import java.io.BufferedReader;
@@ -42,21 +43,20 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout metalLayout;
     private Button logAsAdminButton;
 
+
     private void setLayoutComponents() {
-        metalLayout = findViewById(R.id.metalLayout);
-        numerPytania = findViewById(R.id.numberQuestion1);
-        trescPytania = findViewById(R.id.textView);
-        answerA = findViewById(R.id.textView6);
-        answerB = findViewById(R.id.textView5);
-        answerC = findViewById(R.id.textView4);
-        answerD = findViewById(R.id.textView3);
+        Button startGameButton;
+        startGameButton = findViewById(R.id.startGameButton);
+        startGameButton.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, GameActivity.class);
+            startActivity(intent);
+        });
+
+
         logAsAdminButton = findViewById(R.id.logAsAdminButton);
-        logAsAdminButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AdminActivity.class);
-                startActivity(intent);
-            }
+        logAsAdminButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AdminActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -163,12 +163,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void checkCorrectAnswer(View view){
-        TextView trescPytania = findViewById(R.id.textView);
-        TextView answerA = findViewById(R.id.textView6);
-        TextView answerB = findViewById(R.id.textView5);
-        TextView answerC = findViewById(R.id.textView4);
-        TextView answerD = findViewById(R.id.textView3);
-        ConstraintLayout metalLayout = findViewById(R.id.metalLayout);
+
         metalLayout.setClickable(true);
 
         answerA.setClickable(false);
@@ -201,9 +196,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void playAgain(){
-        ConstraintLayout metalLayout = findViewById(R.id.metalLayout);
-        TextView numerPytania = findViewById(R.id.numberQuestion1);
-
         numberOfQuestion =0;
         listOfQuestionsAndAnswers.clear();
         listOfNumbersOfQuestions.clear();
