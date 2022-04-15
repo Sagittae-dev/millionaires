@@ -79,15 +79,7 @@ public class DatabaseService extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                int id = cursor.getInt(0);
-                String contentOfQuestion = cursor.getString(1);
-                String answerA = cursor.getString(2);
-                String answerB = cursor.getString(3);
-                String answerC = cursor.getString(4);
-                String answerD = cursor.getString(5);
-                String correctAnswer = cursor.getString(6);
-
-                Question question = new Question(id, contentOfQuestion, answerA, answerB, answerC, answerD, correctAnswer);
+                Question question = createQuestionFromCursor(cursor);
                 listToReturn.add(question);
 
             } while (cursor.moveToNext());
@@ -106,6 +98,55 @@ public class DatabaseService extends SQLiteOpenHelper {
             db.close();
         } catch (Exception e) {
             Log.i("DatabaseService", "Problem with deleteQuestion method");
+        }
+    }
+
+    public Question getQuestion(int id) throws DatabaseException {
+        Question question;
+        String query = " SELECT * FROM " + QUESTIONS + " WHERE ID = " + id;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            question = createQuestionFromCursor(cursor);
+        } else {
+            Log.i("DatabaseService", "Exception in getting question");
+            throw new DatabaseException();
+        }
+        Log.i("DatabaseService", "Query Executed");
+        cursor.close();
+        db.close();
+
+        return question;
+    }
+
+    private Question createQuestionFromCursor(Cursor cursor) {
+        int id = cursor.getInt(0);
+        String contentOfQuestion = cursor.getString(1);
+        String answerA = cursor.getString(2);
+        String answerB = cursor.getString(3);
+        String answerC = cursor.getString(4);
+        String answerD = cursor.getString(5);
+        String correctAnswer = cursor.getString(6);
+
+        return new Question(id, contentOfQuestion, answerA, answerB, answerC, answerD, correctAnswer);
+    }
+
+    public void editExistQuestion(int id, Question question) throws DatabaseException {
+        try {
+            String query = " UPDATE " + QUESTIONS + " SET "
+                    + Q_CONTENT + " = '" + question.getContentOfQuestion() + "' , "
+                    + ANSWER_A + " = '" + question.getAnswerA() + "' , "
+                    + ANSWER_B + " = '" + question.getAnswerB() + "' , "
+                    + ANSWER_C + " = '" + question.getAnswerC() + "' , "
+                    + ANSWER_D + " = '" + question.getAnswerD() + "' , "
+                    + CORRECT_ANSWER + " = '" + question.getCorrectAnswer() + "' "
+                    + " WHERE ID = " + id;
+            SQLiteDatabase db = getWritableDatabase();
+            db.execSQL(query);
+            db.close();
+        } catch (Exception e) {
+            Log.i("DatabaseException", "Exception when editing in Database");
+            throw new DatabaseException();
         }
     }
 }

@@ -32,6 +32,11 @@ public class QuestionService {
         databaseService.addQuestion(question);
     }
 
+    public void editQuestion(int id, Question question) throws EmptyFieldException, DatabaseException {
+        questionValidator.validate(question);
+        databaseService.editExistQuestion(id, question);
+    }
+
     public List<Question> getAllQuestions() throws DatabaseException {
         return databaseService.getAllQuestions();
     }
@@ -39,5 +44,10 @@ public class QuestionService {
     public void deleteQuestion(int id) {
         databaseService.deleteQuestion(id);
         Log.i("QuestionService", "deleteQuestion invoked ! ");
+    }
+
+    public Question getQuestion(int id) throws DatabaseException {
+        Log.i("QuestionService", "get question invoked !");
+        return databaseService.getQuestion(id);
     }
 }

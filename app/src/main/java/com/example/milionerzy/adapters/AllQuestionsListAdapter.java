@@ -1,6 +1,8 @@
 package com.example.milionerzy.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.milionerzy.DaggerQuestionServiceComponent;
 import com.example.milionerzy.QuestionServiceComponent;
 import com.example.milionerzy.R;
+import com.example.milionerzy.admin.AdminActivity;
 import com.example.milionerzy.model.Question;
 import com.example.milionerzy.services.QuestionService;
 
@@ -45,6 +48,8 @@ public class AllQuestionsListAdapter extends RecyclerView.Adapter<AllQuestionsLi
                 Toast.makeText(context, "Item: " + position, Toast.LENGTH_SHORT).show());
 
         holder.removeButton.setOnClickListener(b -> removeQuestionFromDatabase(position));
+
+        holder.editButton.setOnClickListener(b -> editQuestionFromDatabase(position));
     }
 
     @Override
@@ -61,6 +66,7 @@ public class AllQuestionsListAdapter extends RecyclerView.Adapter<AllQuestionsLi
         TextView correctAnswerTextView;
         ConstraintLayout particularElementOfList;
         Button removeButton;
+        Button editButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,6 +78,7 @@ public class AllQuestionsListAdapter extends RecyclerView.Adapter<AllQuestionsLi
             answerDTextView = itemView.findViewById(R.id.answerDTextView_DatabaseList);
             correctAnswerTextView = itemView.findViewById(R.id.correctAnswerTextView_DatabaseList);
             removeButton = itemView.findViewById(R.id.removeQuestionFromDatabaseButton);
+            editButton = itemView.findViewById(R.id.editQuestionFromDatabaseButton);
         }
     }
 
@@ -83,6 +90,15 @@ public class AllQuestionsListAdapter extends RecyclerView.Adapter<AllQuestionsLi
         holder.answerDTextView.setText(questionsList.get(position).getAnswerD());
         holder.correctAnswerTextView.setText(questionsList.get(position).getCorrectAnswer());
     }
+
+    private void editQuestionFromDatabase(int position) {
+        Intent intent = new Intent(context, AdminActivity.class);
+        int questionId = questionsList.get(position).getId();
+        intent.putExtra("questionId", questionId);
+        context.startActivity(intent);
+        ((Activity) context).finish();
+    }
+
 
     private void removeQuestionFromDatabase(int position) {
         QuestionServiceComponent questionServiceComponent = DaggerQuestionServiceComponent.create();
