@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.milionerzy.admin.AdminActivity;
+import com.example.milionerzy.game.GameActivity;
 import com.example.milionerzy.model.Question;
 
 import java.io.BufferedReader;
@@ -42,7 +43,19 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout metalLayout;
     private Button logAsAdminButton;
 
+
     private void setLayoutComponents() {
+        Button startGameButton;
+        startGameButton = findViewById(R.id.startGameButton);
+        startGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, GameActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
         logAsAdminButton = findViewById(R.id.logAsAdminButton);
         logAsAdminButton.setOnClickListener(new View.OnClickListener() {
             @Override
