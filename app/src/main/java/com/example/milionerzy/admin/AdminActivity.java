@@ -68,12 +68,16 @@ public class AdminActivity extends AppCompatActivity {
         switch (question.getCorrectAnswer()) {
             case "A":
                 radioGroup.check(R.id.radioButton_A_isCorrect);
+                break;
             case "B":
                 radioGroup.check(R.id.radioButton_B_isCorrect);
+                break;
             case "C":
                 radioGroup.check(R.id.radioButton_C_isCorrect);
+                break;
             case "D":
                 radioGroup.check(R.id.radioButton_D_isCorrect);
+                break;
         }
     }
 

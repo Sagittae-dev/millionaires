@@ -14,15 +14,6 @@ public class Question {
     public Question() {
     }
 
-    public Question(String contentOfQuestion, String answerA, String answerB, String answerC, String answerD, String correctAnswer) {
-        this.contentOfQuestion = contentOfQuestion;
-        this.answerA = answerA;
-        this.answerB = answerB;
-        this.answerC = answerC;
-        this.answerD = answerD;
-        this.correctAnswer = correctAnswer;
-    }
-
     public Question(int id, String contentOfQuestion, String answerA, String answerB, String answerC, String answerD, String correctAnswer) {
         this.id = id;
         this.contentOfQuestion = contentOfQuestion;
@@ -106,5 +97,18 @@ public class Question {
     @Override
     public int hashCode() {
         return Objects.hash(id, contentOfQuestion, answerA, answerB, answerC, answerD, correctAnswer);
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "id=" + id +
+                ", contentOfQuestion='" + contentOfQuestion + '\'' +
+                ", answerA='" + answerA + '\'' +
+                ", answerB='" + answerB + '\'' +
+                ", answerC='" + answerC + '\'' +
+                ", answerD='" + answerD + '\'' +
+                ", correctAnswer='" + correctAnswer + '\'' +
+                '}';
     }
 }
