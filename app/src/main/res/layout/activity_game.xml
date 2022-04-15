@@ -9,54 +9,58 @@
 
     <Button
         android:id="@+id/buttonAnswerC"
+        android:tag="C"
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="160dp"
         android:layout_marginEnd="8dp"
-        android:text="C"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewBackgroundForQuestion" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewBackgroundForQuestion"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/buttonAnswerD"
+        android:tag="D"
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="240dp"
         android:layout_marginEnd="8dp"
-        android:text="D"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewBackgroundForQuestion" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewBackgroundForQuestion"
+        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/buttonAnswerB"
+        android:tag="B"
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="80dp"
         android:layout_marginEnd="8dp"
-        android:text="B"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewBackgroundForQuestion" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewBackgroundForQuestion"
+        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/buttonAnswerA"
+        android:tag="A"
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="A"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewBackgroundForQuestion" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewBackgroundForQuestion"
+        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
     <ImageView
         android:id="@+id/imageViewBackgroundForQuestion"
@@ -76,7 +80,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="40dp"
-        android:text="PYTANIE"
         app:layout_constraintBottom_toTopOf="@+id/buttonAnswerA"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

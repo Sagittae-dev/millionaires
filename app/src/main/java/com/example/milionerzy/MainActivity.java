@@ -47,22 +47,16 @@ public class MainActivity extends AppCompatActivity {
     private void setLayoutComponents() {
         Button startGameButton;
         startGameButton = findViewById(R.id.startGameButton);
-        startGameButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, GameActivity.class);
-                startActivity(intent);
-            }
+        startGameButton.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, GameActivity.class);
+            startActivity(intent);
         });
 
 
         logAsAdminButton = findViewById(R.id.logAsAdminButton);
-        logAsAdminButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AdminActivity.class);
-                startActivity(intent);
-            }
+        logAsAdminButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AdminActivity.class);
+            startActivity(intent);
         });
     }
 
