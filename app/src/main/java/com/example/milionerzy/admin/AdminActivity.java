@@ -1,8 +1,10 @@
 package com.example.milionerzy.admin;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -10,6 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.milionerzy.DaggerQuestionServiceComponent;
 import com.example.milionerzy.QuestionServiceComponent;
@@ -30,6 +33,18 @@ public class AdminActivity extends AppCompatActivity {
     private QuestionService questionService;
     private Button saveQuestionButton;
 
+    public static void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        if(inputMethodManager.isAcceptingText()){
+            inputMethodManager.hideSoftInputFromWindow(
+                    activity.getCurrentFocus().getWindowToken(),
+                    0
+            );
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +52,7 @@ public class AdminActivity extends AppCompatActivity {
         QuestionServiceComponent questionServiceComponent = DaggerQuestionServiceComponent.create();
         questionService = questionServiceComponent.getQuestionService();
         questionService.setDatabaseContext(this);
-        findAllViews();
+        findAllViews(this);
         Log.i("AdminActivity", "Oncreate invoked");
         fillEditTextsIfEditMode();
     }
@@ -81,7 +96,9 @@ public class AdminActivity extends AppCompatActivity {
         }
     }
 
-    private void findAllViews() {
+    private void findAllViews(Activity activity) {
+        ConstraintLayout layout = findViewById(R.id.adminLayout);
+        layout.setOnClickListener( l -> hideSoftKeyboard(activity));
         contentOfQuestionEditText = findViewById(R.id.contentOfQuestionEditText);
         answerAEditText = findViewById(R.id.answerAeditText);
         answerBEditText = findViewById(R.id.answerBeditText);
