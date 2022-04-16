@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/adminLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,54 +21,62 @@
 
     <EditText
         android:id="@+id/answerAeditText"
-        android:layout_width="215dp"
+        android:layout_width="0dp"
         android:layout_height="61dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:ems="10"
+        android:maxLength="50"
         android:hint="Answer A"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/radioButton_group"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintTop_toBottomOf="@+id/contentOfQuestionEditText" />
 
     <EditText
         android:id="@+id/answerDeditText"
-        android:layout_width="215dp"
+        android:layout_width="0dp"
         android:layout_height="74dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:ems="10"
+        android:maxLength="50"
         android:hint="Answer D"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="@+id/answerCeditText"
         app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toStartOf="@id/radioButton_group"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/answerCeditText" />
 
     <EditText
         android:id="@+id/answerCeditText"
-        android:layout_width="215dp"
+        android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:ems="10"
+        android:maxLength="50"
         android:hint="Answer C"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="@+id/answerBeditText"
+        app:layout_constraintEnd_toStartOf="@id/radioButton_group"
+
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/answerBeditText" />
 
     <EditText
         android:id="@+id/answerBeditText"
-        android:layout_width="216dp"
+        android:layout_width="0dp"
         android:layout_height="67dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:ems="10"
+        android:maxLength="50"
         android:hint="Answer B"
         android:inputType="textPersonName"
         android:minHeight="48dp"
@@ -77,39 +87,42 @@
 
     <EditText
         android:id="@+id/contentOfQuestionEditText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
+        android:maxLength="100"
         android:gravity="start|top"
         android:hint="Content of question"
         android:inputType="textMultiLine|textImeMultiLine"
         android:minHeight="48dp"
+        android:maxHeight="200dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addNewQuestionTitle" />
 
     <TextView
         android:id="@+id/addNewQuestionTitle"
         android:layout_width="187dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="155dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="199dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
         android:text="Add Your questions"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toStartOf="@id/goToQuestionDatabaseActivity"
         app:layout_constraintHorizontal_bias="0.53"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
         android:id="@+id/radioButton_group"
-        android:layout_width="119dp"
-        android:layout_height="258dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/answerDeditText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.402"
+        app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toEndOf="@id/answerAeditText"
         app:layout_constraintTop_toTopOf="@+id/answerAeditText">
 
@@ -165,18 +178,18 @@
         android:id="@+id/radioButtonsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="108dp"
+        android:layout_marginBottom="24dp"
         android:text="Provide correct answer"
         app:layout_constraintBottom_toTopOf="@+id/radioButton_group"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.325"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/answerAeditText" />
 
     <Button
         android:id="@+id/saveQuestionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="8dp"
         android:text="SAVE"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
