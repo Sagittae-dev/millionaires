@@ -41,8 +41,11 @@ public class GameActivity extends AppCompatActivity {
         setAllListeners();
     }
 
-    private void setScore(int initialScore){
-        if (initialScore<0) score=0;
+    private void setScore(int newScore){
+        if (newScore<0) {
+            score = 0;
+        }
+        else score = newScore;
     }
 
      private void randomizeNumberOfQuestion() {
