@@ -11,4 +11,5 @@
     <string name="AnswerCEditText">Answer C</string>
     <string name="AnswerDEditText">Answer D</string>
     <string name="FinishGameButtonText">Finish</string>
+    <string name="TextViewScore">Your score is :</string>
 </resources>

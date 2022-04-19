@@ -9,12 +9,13 @@
 
     <Button
         android:id="@+id/buttonAnswerC"
-        android:tag="C"
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="164dp"
         android:layout_marginEnd="8dp"
+        android:background="@drawable/guzik1"
+        android:tag="C"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,12 +24,13 @@
 
     <Button
         android:id="@+id/buttonAnswerD"
-        android:tag="D"
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="240dp"
+        android:layout_marginTop="246dp"
         android:layout_marginEnd="8dp"
+        android:background="@drawable/guzik1"
+        android:tag="D"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,12 +39,13 @@
 
     <Button
         android:id="@+id/buttonAnswerB"
-        android:tag="B"
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="82dp"
         android:layout_marginEnd="8dp"
+        android:background="@drawable/guzik1"
+        android:tag="B"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,11 +54,12 @@
 
     <Button
         android:id="@+id/buttonAnswerA"
-        android:tag="A"
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:background="@drawable/guzik1"
+        android:tag="A"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,11 +68,11 @@
 
     <ImageView
         android:id="@+id/imageViewBackgroundForQuestion"
-        android:layout_width="409dp"
-        android:layout_height="333dp"
+        android:layout_width="412dp"
+        android:layout_height="285dp"
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/tlo1" />
@@ -80,25 +84,54 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="40dp"
-        android:textAlignment="center"
+        android:textAlignment="gravity"
+        android:textColor="@android:color/primary_text_light"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/buttonAnswerA"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/finishGameButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="107dp"
+        android:layout_height="48dp"
         android:layout_marginStart="150dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="150dp"
         android:layout_marginBottom="18dp"
+        android:background="@drawable/guzik1"
         android:text="@string/FinishGameButtonText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonAnswerD" />
+
+    <TextView
+        android:id="@+id/textViewScoreNumber"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAnswerA"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewQuestion" />
+
+    <TextView
+        android:id="@+id/textViewScoreText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:text="@string/TextViewScore"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAnswerA"
+        app:layout_constraintEnd_toStartOf="@+id/textViewScoreNumber"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewQuestion" />
 </androidx.constraintlayout.widget.ConstraintLayout>
