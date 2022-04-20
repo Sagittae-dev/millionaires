@@ -37,7 +37,7 @@ public class AdminActivity extends AppCompatActivity {
         InputMethodManager inputMethodManager =
                 (InputMethodManager) activity.getSystemService(
                         Activity.INPUT_METHOD_SERVICE);
-        if(inputMethodManager.isAcceptingText()){
+        if (inputMethodManager.isAcceptingText()) {
             inputMethodManager.hideSoftInputFromWindow(
                     activity.getCurrentFocus().getWindowToken(),
                     0
@@ -98,7 +98,7 @@ public class AdminActivity extends AppCompatActivity {
 
     private void findAllViews(Activity activity) {
         ConstraintLayout layout = findViewById(R.id.adminLayout);
-        layout.setOnClickListener( l -> hideSoftKeyboard(activity));
+        layout.setOnClickListener(l -> hideSoftKeyboard(activity));
         contentOfQuestionEditText = findViewById(R.id.contentOfQuestionEditText);
         answerAEditText = findViewById(R.id.answerAeditText);
         answerBEditText = findViewById(R.id.answerBeditText);
@@ -131,7 +131,7 @@ public class AdminActivity extends AppCompatActivity {
             questionService.editQuestion(id, question);
             Intent intent = new Intent(this, QuestionsDatabaseActivity.class);
             startActivity(intent);
-            finish(); // TODO learn more about request code
+            finish();
         } catch (EmptyFieldException | DatabaseException e) {
             Log.i("AdminActivity", "Empty field Exception");
         }

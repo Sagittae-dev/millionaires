@@ -1,6 +1,7 @@
 package com.example.milionerzy.adapters;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -47,7 +48,7 @@ public class AllQuestionsListAdapter extends RecyclerView.Adapter<AllQuestionsLi
         holder.particularElementOfList.setOnClickListener(v ->
                 Toast.makeText(context, "Item: " + position, Toast.LENGTH_SHORT).show());
 
-        holder.removeButton.setOnClickListener(b -> removeQuestionFromDatabase(position));
+        holder.removeButton.setOnClickListener(b -> showRemoveAlertDialog(position));
 
         holder.editButton.setOnClickListener(b -> editQuestionFromDatabase(position));
     }
@@ -97,6 +98,16 @@ public class AllQuestionsListAdapter extends RecyclerView.Adapter<AllQuestionsLi
         intent.putExtra("questionId", questionId);
         context.startActivity(intent);
         ((Activity) context).finish();
+    }
+
+    private void showRemoveAlertDialog(int position) {
+        new AlertDialog.Builder(context)
+                .setTitle("Remove question")
+                .setMessage("Are you sure you want to remove this question?")
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> removeQuestionFromDatabase(position))
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
 

@@ -11,4 +11,6 @@
     <string name="AnswerCEditText">Answer C</string>
     <string name="AnswerDEditText">Answer D</string>
     <string name="FinishGameButtonText">Finish</string>
+    <string name="enter_password_text">Enter Password</string>
+    <string name="password">Password</string>
 </resources>

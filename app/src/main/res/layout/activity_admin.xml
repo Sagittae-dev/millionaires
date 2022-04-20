@@ -17,37 +17,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/addNewQuestionTitle"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"/>
+        android:layout_marginEnd="4dp"/>
 
     <EditText
         android:id="@+id/answerAeditText"
         android:layout_width="0dp"
-        android:layout_height="61dp"
+        android:layout_height="60dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/AnswerAEditText"
-        android:maxLength="50"
         android:inputType="textPersonName"
+        android:maxLength="50"
         android:minHeight="48dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/radioButton_group"
-        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contentOfQuestionEditText" />
 
     <EditText
         android:id="@+id/answerDeditText"
         android:layout_width="0dp"
-        android:layout_height="74dp"
+        android:layout_height="60dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         android:ems="10"
         android:hint="@string/AnswerDEditText"
         android:maxLength="50"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="@+id/answerCeditText"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintEnd_toStartOf="@id/radioButton_group"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/answerCeditText" />
@@ -55,33 +53,32 @@
     <EditText
         android:id="@+id/answerCeditText"
         android:layout_width="0dp"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         android:ems="10"
         android:hint="@string/AnswerCEditText"
         android:maxLength="50"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintEnd_toStartOf="@id/radioButton_group"
-
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/answerBeditText" />
 
     <EditText
         android:id="@+id/answerBeditText"
         android:layout_width="0dp"
-        android:layout_height="67dp"
+        android:layout_height="60dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         android:ems="10"
         android:maxLength="50"
         android:hint="@string/AnswerBEditText"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="@+id/answerAeditText"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintEnd_toStartOf="@id/radioButton_group"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/answerAeditText" />
 
@@ -90,18 +87,19 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
         android:capitalize="sentences"
         android:ems="10"
-        android:maxLength="100"
         android:gravity="start|top"
         android:hint="@string/ContentOfQuestionEditText"
         android:inputType="textMultiLine|textImeMultiLine"
-        android:minHeight="48dp"
         android:maxHeight="200dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:maxLength="100"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addNewQuestionTitle" />
 
     <TextView
@@ -120,7 +118,7 @@
         android:id="@+id/radioButton_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="2dp"
         app:layout_constraintBottom_toBottomOf="@+id/answerDeditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1"
@@ -179,12 +177,14 @@
         android:id="@+id/radioButtonsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="4dp"
         android:text="Provide correct answer"
+        app:layout_constraintTop_toBottomOf="@id/contentOfQuestionEditText"
         app:layout_constraintBottom_toTopOf="@+id/radioButton_group"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/answerAeditText" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/saveQuestionButton"
