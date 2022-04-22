@@ -1,12 +1,14 @@
 package com.example.milionerzy.game;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.milionerzy.DaggerQuestionServiceComponent;
 import com.example.milionerzy.MainActivity;
@@ -18,21 +20,21 @@ import com.example.milionerzy.services.QuestionService;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class GameActivity extends AppCompatActivity {
-    private int score;
-    private int numberOfQuestion;
-    private TextView contentOfQuestionTextView;
-    private Button finishGameButton;
-    private Button answerAButton;
-    private Button answerBButton;
-    private Button answerCButton;
-    private Button answerDButton;
+    private int score, numberOfQuestion;
+    private TextView contentOfQuestionTextView, scoreNumberTextView;
+    private Button finishGameButton, answerAButton, answerBButton, answerCButton, answerDButton;
     private List<Question> questionList;
+    private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_game);
         createListWithQuestions();
         findAllViews();
@@ -42,10 +44,10 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void setScore(int newScore){
-        if (newScore<0) {
-            score = 0;
+        if (newScore>=0) {
+            score = newScore;
         }
-        else score = newScore;
+        else score = 0;
     }
 
      private void randomizeNumberOfQuestion() {
@@ -53,7 +55,9 @@ public class GameActivity extends AppCompatActivity {
         numberOfQuestion = random.nextInt(questionList.size());
     }
 
+    @SuppressLint("SetTextI18n")
     private void getQuestionFromList() {
+        scoreNumberTextView.setText(Integer.toString(score));
         contentOfQuestionTextView.setText(questionList.get(numberOfQuestion).getContentOfQuestion());
         answerAButton.setText(questionList.get(numberOfQuestion).getAnswerA());
         answerBButton.setText(questionList.get(numberOfQuestion).getAnswerB());
@@ -62,21 +66,33 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
-    private void checkAnswer(String tag, String correctAnswer) {
-        if (tag.equals(correctAnswer)) {
+    private void checkAnswer(int id, String correctAnswer) {
+        if (findViewById(id).getTag().toString().equals(correctAnswer)) {
             Log.i("GameActivity", "prawidlowa odp");
-            setScore(score+2);
+//            try {
+//                TimeUnit.SECONDS.sleep(1);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+            findViewById(id).setBackgroundResource(R.drawable.correctanswer);
+            setScore(score + 2);
         }
         else {
+            findViewById(id).setBackgroundResource(R.drawable.wronganswer);
             Log.i("GameActivity","nieprawidlowa odp");
-            setScore(score--);
+            setScore(--score);
         }
-        getNextQuestion();
 
+        scheduledExecutorService.schedule(() -> {
+            findViewById(id).setBackgroundResource(R.drawable.guzik1);
+            getNextQuestion();
+        }, 1,TimeUnit.SECONDS);
     }
 
+    @SuppressLint("SetTextI18n")
     private void getNextQuestion() {
         removeQuestionFromList();
+        scoreNumberTextView.setText(Integer.toString(score));
         if (!questionList.isEmpty()) {
             randomizeNumberOfQuestion();
             getQuestionFromList();
@@ -114,6 +130,8 @@ public class GameActivity extends AppCompatActivity {
 
     }
     private void findAllViews() {
+        findViewById(R.id.textViewScoreText);
+        scoreNumberTextView = findViewById(R.id.textViewScoreNumber);
         contentOfQuestionTextView = findViewById(R.id.textViewQuestion);
         finishGameButton = findViewById(R.id.finishGameButton);
         answerAButton = findViewById(R.id.buttonAnswerA);
@@ -123,13 +141,33 @@ public class GameActivity extends AppCompatActivity {
     }
     private void setAllListeners() {
         finishGameButton.setOnClickListener(v -> finishGame());
-        answerAButton.setOnClickListener(v -> checkAnswer(v.getTag().toString(), questionList.get(numberOfQuestion).getCorrectAnswer()));
-        answerBButton.setOnClickListener(v -> checkAnswer(v.getTag().toString(), questionList.get(numberOfQuestion).getCorrectAnswer()));
-        answerCButton.setOnClickListener(v -> checkAnswer(v.getTag().toString(), questionList.get(numberOfQuestion).getCorrectAnswer()));
-        answerDButton.setOnClickListener(v -> checkAnswer(v.getTag().toString(), questionList.get(numberOfQuestion).getCorrectAnswer()));
+        answerAButton.setOnClickListener(v -> checkAnswer(v.getId(), questionList.get(numberOfQuestion).getCorrectAnswer()));
+        answerBButton.setOnClickListener(v -> checkAnswer(v.getId(), questionList.get(numberOfQuestion).getCorrectAnswer()));
+        answerCButton.setOnClickListener(v -> checkAnswer(v.getId(), questionList.get(numberOfQuestion).getCorrectAnswer()));
+        answerDButton.setOnClickListener(v -> checkAnswer(v.getId(), questionList.get(numberOfQuestion).getCorrectAnswer()));
     }
     private void removeQuestionFromList() {
         questionList.remove(numberOfQuestion);
     }
 
 }
+
+//        answerAButton.setOnClickListener(v -> checkAnswer(v.getTag().toString(), questionList.get(numberOfQuestion).getCorrectAnswer()));
+
+// stara metoda checkAnswer
+
+//    private void checkAnswer(int id, String correctAnswer) {
+//        if (tag.equals(correctAnswer)) {
+//            Log.i("GameActivity", "prawidlowa odp");
+////            try {
+////                TimeUnit.SECONDS.sleep(1);
+////            } catch (InterruptedException e) {
+////                e.printStackTrace();
+////            }
+//            setScore(score + 2);
+//        }
+//        else {
+//            Log.i("GameActivity","nieprawidlowa odp");
+//            setScore(--score);
+//        }
+//        getNextQuestion();
