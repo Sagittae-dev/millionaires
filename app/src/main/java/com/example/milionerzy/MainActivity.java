@@ -1,6 +1,14 @@
 package com.example.milionerzy;
 
+
+
+import static com.example.milionerzy.settings.SettingsActivity.CLASSIC_MODE;
+import static com.example.milionerzy.settings.SettingsActivity.PARTY_MODE;
+import static com.example.milionerzy.settings.SettingsActivity.SETTING_GAME_MODE;
+
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -27,7 +35,10 @@ import java.security.GeneralSecurityException;
 
 public class MainActivity extends AppCompatActivity {
 
+
+
     private SharedPreferences sharedPreferences;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -36,16 +47,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setLayoutComponents();
     }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    @SuppressLint("InlinedApi")
     private void setLayoutComponents() {
         Button startGameButton;
         startGameButton = findViewById(R.id.startGameButton);
         startGameButton.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, GameActivity.class);
-            startActivity(intent);
+                SharedPreferences sharedPreferences = getSharedPreferences(SETTING_GAME_MODE, Context.MODE_PRIVATE);
+                int mode = sharedPreferences.getInt(SETTING_GAME_MODE, CLASSIC_MODE);
+                    if (mode == CLASSIC_MODE) {
+                        Intent intent = new Intent(MainActivity.this, GameActivity.class);
+                        startActivity(intent);
+                    } else if (mode == PARTY_MODE) {
+                        //here will be Party mode activity
+                    }
+                }
 
-        });
+        );
+
 
         Button logAsAdminButton = findViewById(R.id.logAsAdminButton);
         logAsAdminButton.setOnClickListener(v -> {
@@ -75,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
         ImageButton openSettingsButton = findViewById(R.id.openSettingsButton);
         openSettingsButton.setOnClickListener(b -> {
-            Intent intent = new Intent(this, SettingsActivity.class);
+            @SuppressLint({"NewApi", "LocalSuppress"}) Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         });
     }
@@ -124,3 +142,4 @@ public class MainActivity extends AppCompatActivity {
         return passwordFromEditText.equals(encryptedPassword);
     }
 }
+

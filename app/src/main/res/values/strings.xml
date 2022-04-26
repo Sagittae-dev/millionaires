@@ -17,4 +17,8 @@
     <string name="title_activity_settings">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="classicModeRadioButtonText">Classic</string>
+    <string name="partyModeRadioButtonText">Party</string>
+    <string name="chooseModeTextView">Choose mode: </string>
+    <string name="saveSettingsButtonText">Save </string>
 </resources>
