@@ -1,8 +1,9 @@
 package com.example.milionerzy.settings;
 
-import android.content.SharedPreferences;
+import android.app.AlertDialog;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,71 +11,78 @@ import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.security.crypto.EncryptedSharedPreferences;
-import androidx.security.crypto.MasterKeys;
 
 import com.example.milionerzy.R;
-
-import java.io.IOException;
-import java.security.GeneralSecurityException;
+import com.example.milionerzy.validator.PasswordService;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class SettingsActivity extends AppCompatActivity {
-    Button saveNewPasswordButton;
-    EditText newPasswordEditText;
-    TextView wrongPasswordTextView, passwordChangedCorrectlyTextView;
+
+    private TextView wrongPasswordTextView, passwordChangedCorrectlyTextView, passwordsAreTheSameTextView, wrongOldPasswordTextView;
+    private PasswordService passwordService;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        wrongPasswordTextView = findViewById(R.id.wrongTypeOfNewPasswordTextView);
-        passwordChangedCorrectlyTextView = findViewById(R.id.passwordChangedCorrectlyTextView);
-        newPasswordEditText = findViewById(R.id.newPasswordEditText);
-        saveNewPasswordButton = findViewById(R.id.saveNewPasswordButton);
-        saveNewPasswordButton.setOnClickListener(b -> {
-            try {
-                saveNewPassword();
-            } catch (GeneralSecurityException | IOException e) {
-                e.printStackTrace();
-            }
-        });
+        setAllViews();
+        passwordService = new PasswordService();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void saveNewPassword() throws GeneralSecurityException, IOException {
-        String password = newPasswordEditText.getText().toString();
-        if (!passwordIsValid(password)) {
+    private void setAllViews() {
+        passwordChangedCorrectlyTextView = findViewById(R.id.passwordChangedCorrectlyTextView);
+        Button setNewPasswordButton = findViewById(R.id.saveNewPasswordButton);
+        setNewPasswordButton.setOnClickListener(b -> openPasswordRequestDialog());
+    }
+
+    private void openPasswordRequestDialog() {
+        LayoutInflater li = LayoutInflater.from(this);
+        View passwordRequestView = li.inflate(R.layout.change_password_dialog, null);
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        wrongPasswordTextView = passwordRequestView.findViewById(R.id.wrongTypeOfNewPasswordTextView);
+        passwordsAreTheSameTextView = passwordRequestView.findViewById(R.id.passwordsAreTehSameTextView);
+        wrongOldPasswordTextView = passwordRequestView.findViewById(R.id.wrongOldPasswordTextView);
+        final EditText oldPasswordInput = passwordRequestView.findViewById(R.id.oldPasswordInChangeDialogEditText);
+        final EditText newPasswordInput = passwordRequestView.findViewById(R.id.newPasswordInChangeDialogEditText);
+        alertDialogBuilder.setView(passwordRequestView);
+        alertDialogBuilder
+                .setPositiveButton("Check", null)
+                .setNegativeButton("Cancel", (dialog, id) -> dialog.cancel());
+
+        final AlertDialog dialog = alertDialogBuilder.create();
+        dialog.show();
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(b -> showWrongPasswordMessageOrSavePassword(oldPasswordInput, newPasswordInput, dialog));
+    }
+
+    private void showWrongPasswordMessageOrSavePassword(EditText oldPasswordInput, EditText newPasswordInput, AlertDialog dialog) {
+        if (!passwordService.isCorrectFormat(oldPasswordInput)) {
+            passwordsAreTheSameTextView.setVisibility(View.GONE);
             wrongPasswordTextView.setVisibility(View.VISIBLE);
-            passwordChangedCorrectlyTextView.setVisibility(View.GONE);
+            wrongOldPasswordTextView.setVisibility(View.GONE);
             return;
         }
-        String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
-        SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(
-                "secret_shared_prefs",
-                masterKeyAlias,
-                this,
-                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-        );
-        sharedPreferences.edit().putString("encryptedPassword", newPasswordEditText.getText().toString()).apply();
-        wrongPasswordTextView.setVisibility(View.GONE);
-        passwordChangedCorrectlyTextView.setVisibility(View.VISIBLE);
-    }
-
-    private boolean passwordIsValid(String password) {
-        boolean lengthOfPasswordIsCorrect = correctLengthOfPassword(password);
-        if (!lengthOfPasswordIsCorrect) {
-            return false;
+        if (!passwordService.isCorrectFormat(newPasswordInput)) {
+            passwordsAreTheSameTextView.setVisibility(View.GONE);
+            wrongPasswordTextView.setVisibility(View.VISIBLE);
+            wrongOldPasswordTextView.setVisibility(View.GONE);
+            return;
         }
-        if (password.contains(" ")) {
-            return false;
+        if (!passwordService.passwordIsCorrect(this, oldPasswordInput)) {
+            passwordsAreTheSameTextView.setVisibility(View.GONE);
+            wrongPasswordTextView.setVisibility(View.GONE);
+            wrongOldPasswordTextView.setVisibility(View.VISIBLE);
+            return;
         }
-        return password.trim().length() == password.length();
-    }
-
-    private boolean correctLengthOfPassword(String password) {
-        return password.length() > 6 && password.length() < 12;
+        if (passwordService.twoPasswordMatches(oldPasswordInput, newPasswordInput)) {
+            wrongPasswordTextView.setVisibility(View.GONE);
+            passwordsAreTheSameTextView.setVisibility(View.VISIBLE);
+            wrongOldPasswordTextView.setVisibility(View.GONE);
+        } else {
+            passwordService.saveNewPasswordToSP(newPasswordInput, this);
+            dialog.dismiss();
+            passwordChangedCorrectlyTextView.setVisibility(View.VISIBLE);
+        }
     }
 }
