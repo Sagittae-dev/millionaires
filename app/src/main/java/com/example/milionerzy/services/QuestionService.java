@@ -3,10 +3,10 @@ package com.example.milionerzy.services;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.milionerzy.database.DatabaseException;
+import com.example.milionerzy.exceptions.DatabaseException;
 import com.example.milionerzy.database.DatabaseService;
 import com.example.milionerzy.model.Question;
-import com.example.milionerzy.validator.EmptyFieldException;
+import com.example.milionerzy.exceptions.EmptyFieldException;
 import com.example.milionerzy.validator.QuestionValidator;
 
 import java.util.List;

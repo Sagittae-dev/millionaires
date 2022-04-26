@@ -9,6 +9,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.example.milionerzy.exceptions.DatabaseException;
 import com.example.milionerzy.model.Question;
 
 import java.util.ArrayList;

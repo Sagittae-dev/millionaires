@@ -17,10 +17,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.example.milionerzy.DaggerQuestionServiceComponent;
 import com.example.milionerzy.QuestionServiceComponent;
 import com.example.milionerzy.R;
-import com.example.milionerzy.database.DatabaseException;
+import com.example.milionerzy.exceptions.DatabaseException;
 import com.example.milionerzy.model.Question;
 import com.example.milionerzy.services.QuestionService;
-import com.example.milionerzy.validator.EmptyFieldException;
+import com.example.milionerzy.exceptions.EmptyFieldException;
 
 public class AdminActivity extends AppCompatActivity {
 
