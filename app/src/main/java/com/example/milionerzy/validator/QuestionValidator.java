@@ -2,6 +2,7 @@ package com.example.milionerzy.validator;
 
 import android.util.Log;
 
+import com.example.milionerzy.exceptions.EmptyFieldException;
 import com.example.milionerzy.model.Question;
 
 import java.util.ArrayList;

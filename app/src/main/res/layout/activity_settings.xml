@@ -19,30 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/newPasswordEditText"
-        android:layout_width="200sp"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingsTitle" />
-
-    <TextView
-        android:id="@+id/wrongTypeOfNewPasswordTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Wrong password (no spaces, length = (6, 12) )"
-        android:textColor="#FD0303"
-        android:textSize="12sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/saveNewPasswordButton"
-        app:layout_constraintEnd_toEndOf="@id/newPasswordEditText"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="@id/newPasswordEditText"
-        app:layout_constraintTop_toBottomOf="@+id/newPasswordEditText" />
-
     <TextView
         android:id="@+id/passwordChangedCorrectlyTextView"
         android:layout_width="wrap_content"
@@ -51,20 +27,21 @@
         android:textColor="#2CFB08"
         android:textSize="14sp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/saveNewPasswordButton"
-        app:layout_constraintEnd_toEndOf="@id/newPasswordEditText"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="@id/newPasswordEditText"
-        app:layout_constraintTop_toBottomOf="@+id/newPasswordEditText" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settingsTitle" />
 
     <Button
         android:id="@+id/saveNewPasswordButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="save new password"
+        android:layout_marginTop="20dp"
+        android:text="set new password"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/wrongTypeOfNewPasswordTextView" />
+        app:layout_constraintTop_toBottomOf="@id/settingsTitle" />
 
     <RadioGroup
         android:id="@+id/chooseModeRadioGroup"
