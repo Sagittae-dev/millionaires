@@ -58,31 +58,6 @@ public class AllQuestionsListAdapter extends RecyclerView.Adapter<AllQuestionsLi
         return questionsList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView contentOfQuestionTextView;
-        TextView answerATextView;
-        TextView answerBTextView;
-        TextView answerCTextView;
-        TextView answerDTextView;
-        TextView correctAnswerTextView;
-        ConstraintLayout particularElementOfList;
-        Button removeButton;
-        Button editButton;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            particularElementOfList = itemView.findViewById(R.id.databaseListItem);
-            contentOfQuestionTextView = itemView.findViewById(R.id.contentOfQuestionTextView_DatabaseList);
-            answerATextView = itemView.findViewById(R.id.answerATextView_DatabaseList);
-            answerBTextView = itemView.findViewById(R.id.answerBTextView_DatabaseList);
-            answerCTextView = itemView.findViewById(R.id.answerCTextView_DatabaseList);
-            answerDTextView = itemView.findViewById(R.id.answerDTextView_DatabaseList);
-            correctAnswerTextView = itemView.findViewById(R.id.correctAnswerTextView_DatabaseList);
-            removeButton = itemView.findViewById(R.id.removeQuestionFromDatabaseButton);
-            editButton = itemView.findViewById(R.id.editQuestionFromDatabaseButton);
-        }
-    }
-
     private void fillQuestionTextViews(ViewHolder holder, final int position) {
         holder.contentOfQuestionTextView.setText(questionsList.get(position).getContentOfQuestion());
         holder.answerATextView.setText(questionsList.get(position).getAnswerA());
@@ -110,7 +85,6 @@ public class AllQuestionsListAdapter extends RecyclerView.Adapter<AllQuestionsLi
                 .show();
     }
 
-
     private void removeQuestionFromDatabase(int position) {
         QuestionServiceComponent questionServiceComponent = DaggerQuestionServiceComponent.create();
         QuestionService questionService = questionServiceComponent.getQuestionService();
@@ -120,5 +94,30 @@ public class AllQuestionsListAdapter extends RecyclerView.Adapter<AllQuestionsLi
         questionService.deleteQuestion(id);
         questionsList.remove(position);
         this.notifyDataSetChanged();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView contentOfQuestionTextView;
+        TextView answerATextView;
+        TextView answerBTextView;
+        TextView answerCTextView;
+        TextView answerDTextView;
+        TextView correctAnswerTextView;
+        ConstraintLayout particularElementOfList;
+        Button removeButton;
+        Button editButton;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            particularElementOfList = itemView.findViewById(R.id.databaseListItem);
+            contentOfQuestionTextView = itemView.findViewById(R.id.contentOfQuestionTextView_DatabaseList);
+            answerATextView = itemView.findViewById(R.id.answerATextView_DatabaseList);
+            answerBTextView = itemView.findViewById(R.id.answerBTextView_DatabaseList);
+            answerCTextView = itemView.findViewById(R.id.answerCTextView_DatabaseList);
+            answerDTextView = itemView.findViewById(R.id.answerDTextView_DatabaseList);
+            correctAnswerTextView = itemView.findViewById(R.id.correctAnswerTextView_DatabaseList);
+            removeButton = itemView.findViewById(R.id.removeQuestionFromDatabaseButton);
+            editButton = itemView.findViewById(R.id.editQuestionFromDatabaseButton);
+        }
     }
 }
