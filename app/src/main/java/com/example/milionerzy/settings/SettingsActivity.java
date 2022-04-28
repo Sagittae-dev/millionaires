@@ -1,11 +1,14 @@
 package com.example.milionerzy.settings;
 
+import static com.example.milionerzy.enums.GameModes.CLASSIC_MODE;
+import static com.example.milionerzy.enums.GameModes.PARTY_MODE;
+
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,19 +20,13 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.milionerzy.R;
+import com.example.milionerzy.enums.GameModes;
 import com.example.milionerzy.validator.PasswordService;
-
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class SettingsActivity extends AppCompatActivity {
     public static final String SETTING_GAME_MODE = "GameMode";
-    public static final int CLASSIC_MODE = 100;
-    public static final int PARTY_MODE = 101;
-    Button saveNewPasswordButton;
     Button saveSettingsButton;
-    EditText newPasswordEditText;
     private RadioGroup chooseModeRadioGroup;
     private TextView wrongPasswordTextView, passwordChangedCorrectlyTextView, passwordsAreTheSameTextView, wrongOldPasswordTextView;
     private PasswordService passwordService;
@@ -49,6 +46,8 @@ public class SettingsActivity extends AppCompatActivity {
         passwordChangedCorrectlyTextView = findViewById(R.id.passwordChangedCorrectlyTextView);
         Button setNewPasswordButton = findViewById(R.id.saveNewPasswordButton);
         setNewPasswordButton.setOnClickListener(b -> openPasswordRequestDialog());
+        saveSettingsButton = findViewById(R.id.saveSettingsButton);
+        saveSettingsButton.setOnClickListener(view -> setGameModeFromRadioButtons());
     }
 
     private void openPasswordRequestDialog() {
@@ -67,35 +66,9 @@ public class SettingsActivity extends AppCompatActivity {
 
         final AlertDialog dialog = alertDialogBuilder.create();
         dialog.show();
-
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(b -> showWrongPasswordMessageOrSavePassword(oldPasswordInput, newPasswordInput, dialog));
-        newPasswordEditText = findViewById(R.id.newPasswordEditText);
-        saveNewPasswordButton = findViewById(R.id.saveNewPasswordButton);
-        saveNewPasswordButton.setOnClickListener(b -> {
-            try {
-                saveNewPassword();
-            } catch (GeneralSecurityException | IOException e) {
-                e.printStackTrace();
-            }
-        });
-        saveSettingsButton = findViewById(R.id.saveSettingsButton);
-        saveSettingsButton.setOnClickListener(view -> setGameModeFromRadioButtons());
     }
 
-    private void setGameModeFromRadioButtons() {
-            if (chooseModeRadioGroup.getCheckedRadioButtonId() == R.id.partyRadioButton){
-                setPreferenceGameMode(PARTY_MODE);
-                Log.i("SettingsActivity", "Gamemode set to party mode");
-            }
-            else
-            {
-                setPreferenceGameMode(CLASSIC_MODE);
-                Log.i("SettingsActivity", "Gamemode set to classic mode");
-            }
-
-
-        Toast.makeText(this, "Settings saved", Toast.LENGTH_SHORT).show();
-        }
 
     private void showWrongPasswordMessageOrSavePassword(EditText oldPasswordInput, EditText newPasswordInput, AlertDialog dialog) {
         if (!passwordService.isCorrectFormat(oldPasswordInput)) {
@@ -127,15 +100,22 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    private boolean correctLengthOfPassword(String password) {
-        return password.length() > 6 && password.length() < 12;
+    public void setPreferenceGameMode(GameModes thePreference)
+    {
+        SharedPreferences.Editor editor = getSharedPreferences(SETTING_GAME_MODE,MODE_PRIVATE).edit();
+        editor.putString(SETTING_GAME_MODE, thePreference.toString());
+        editor.apply();
     }
 
-
-    public void setPreferenceGameMode(int thePreference)
-    {
-        SharedPreferences.Editor editor = getSharedPreferences(SETTING_GAME_MODE,0).edit();
-        editor.putInt("GameMode", thePreference);
-        editor.apply();
+    private void setGameModeFromRadioButtons() {
+        if (chooseModeRadioGroup.getCheckedRadioButtonId() == R.id.partyRadioButton){
+            setPreferenceGameMode(PARTY_MODE);
+            Log.i("SettingsActivity", "GameMode set to party mode");
+        } else
+        {
+            setPreferenceGameMode(CLASSIC_MODE);
+            Log.i("SettingsActivity", "GameMode set to classic mode");
+        }
+        Toast.makeText(this, "Settings saved", Toast.LENGTH_SHORT).show();
     }
 }

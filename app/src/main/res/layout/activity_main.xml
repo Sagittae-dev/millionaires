@@ -81,15 +81,5 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/mainActivityTitleTextView" />
 
-    <Button
-        android:id="@+id/openSetGroupsAndGameLength_ForTEst"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="open set groups and ..."
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startGameButton" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

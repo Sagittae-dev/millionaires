@@ -69,11 +69,6 @@ public class GameActivity extends AppCompatActivity {
     private void checkAnswer(int id, String correctAnswer) {
         if (findViewById(id).getTag().toString().equals(correctAnswer)) {
             Log.i("GameActivity", "prawidlowa odp");
-//            try {
-//                TimeUnit.SECONDS.sleep(1);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
             findViewById(id).setBackgroundResource(R.drawable.correctanswer);
             setScore(score + 2);
         } else {
@@ -118,15 +113,8 @@ public class GameActivity extends AppCompatActivity {
             Log.i("GameActivity", "Exception during getting questions");
         }
 
-
-        Question a = new Question(0, "content AAAAA", "odpowiedza ", "b", "c ", "d", "D");
-        questionList.add(a);
-        //        Question b = new Question(1, "content BBB", "odpowiedza ", "b", "c ", "d", "C");
-//        Question c = new Question(2, "content CCC ", "odpowiedza ", "b", "c ", "d", "A");
-//        questionList = new ArrayList<>();
-//        questionList.add(b);
-//        questionList.add(c);
-
+        Question testQuestion = new Question(0, "content AAAAA", "odpowiedza ", "b", "c ", "d", "D");
+        questionList.add(testQuestion);
     }
 
     private void findAllViews() {
@@ -153,23 +141,3 @@ public class GameActivity extends AppCompatActivity {
     }
 
 }
-
-//        answerAButton.setOnClickListener(v -> checkAnswer(v.getTag().toString(), questionList.get(numberOfQuestion).getCorrectAnswer()));
-
-// stara metoda checkAnswer
-
-//    private void checkAnswer(int id, String correctAnswer) {
-//        if (tag.equals(correctAnswer)) {
-//            Log.i("GameActivity", "prawidlowa odp");
-////            try {
-////                TimeUnit.SECONDS.sleep(1);
-////            } catch (InterruptedException e) {
-////                e.printStackTrace();
-////            }
-//            setScore(score + 2);
-//        }
-//        else {
-//            Log.i("GameActivity","nieprawidlowa odp");
-//            setScore(--score);
-//        }
-//        getNextQuestion();

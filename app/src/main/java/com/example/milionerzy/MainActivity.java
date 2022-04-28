@@ -2,8 +2,8 @@ package com.example.milionerzy;
 
 
 
-import static com.example.milionerzy.settings.SettingsActivity.CLASSIC_MODE;
-import static com.example.milionerzy.settings.SettingsActivity.PARTY_MODE;
+import static com.example.milionerzy.enums.GameModes.CLASSIC_MODE;
+import static com.example.milionerzy.enums.GameModes.PARTY_MODE;
 import static com.example.milionerzy.settings.SettingsActivity.SETTING_GAME_MODE;
 
 import android.annotation.SuppressLint;
@@ -34,12 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
     private PasswordService passwordService;
 
-
-    private SharedPreferences sharedPreferences;
-
-
-    private Button openSetGroupsAndGameLengthActivityToTest; // only for testing
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,29 +41,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setLayoutComponents();
         passwordService = new PasswordService();
-        openSetGroupsAndGameLengthActivityToTest = findViewById(R.id.openSetGroupsAndGameLength_ForTEst);
-        openSetGroupsAndGameLengthActivityToTest.setOnClickListener(b -> {
-            Intent intent = new Intent(this, SetGroupsAndGameLengthActivity.class);
-            startActivity(intent);
-        });
     }
+
     @SuppressLint("InlinedApi")
     private void setLayoutComponents() {
         Button startGameButton;
         startGameButton = findViewById(R.id.startGameButton);
-        startGameButton.setOnClickListener(view -> {
-                SharedPreferences sharedPreferences = getSharedPreferences(SETTING_GAME_MODE, Context.MODE_PRIVATE);
-                int mode = sharedPreferences.getInt(SETTING_GAME_MODE, CLASSIC_MODE);
-                    if (mode == CLASSIC_MODE) {
-                        Intent intent = new Intent(MainActivity.this, GameActivity.class);
-                        startActivity(intent);
-                    } else if (mode == PARTY_MODE) {
-                        //here will be Party mode activity
-                    }
-                }
-
-        );
-
+        startGameButton.setOnClickListener(view -> checkMode());
 
         Button logAsAdminButton = findViewById(R.id.logAsAdminButton);
         logAsAdminButton.setOnClickListener(v -> onAdminButtonClickListener());
@@ -80,6 +58,22 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
     }
+
+    @SuppressLint("InlinedApi")
+    private void checkMode() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SETTING_GAME_MODE, Context.MODE_PRIVATE);
+        String mode = sharedPreferences.getString(SETTING_GAME_MODE, CLASSIC_MODE.toString());
+            if (mode.equals(CLASSIC_MODE.toString())) {
+               startGame(GameActivity.class);
+            } else if (mode.equals(PARTY_MODE.toString())) {
+                startGame(SetGroupsAndGameLengthActivity.class);
+            }
+        }
+
+        private void startGame(Class<?> activity){
+            Intent intent = new Intent(this, activity);
+            startActivity(intent);
+        }
 
     private void onAdminButtonClickListener() {
         if (passwordService.noSavedPassword(this)) {
