@@ -30,9 +30,7 @@ public class SettingsActivity extends AppCompatActivity {
     Button saveNewPasswordButton;
     Button saveSettingsButton;
     EditText newPasswordEditText;
-    TextView wrongPasswordTextView, passwordChangedCorrectlyTextView;
     private RadioGroup chooseModeRadioGroup;
-
     private TextView wrongPasswordTextView, passwordChangedCorrectlyTextView, passwordsAreTheSameTextView, wrongOldPasswordTextView;
     private PasswordService passwordService;
 
@@ -133,12 +131,6 @@ public class SettingsActivity extends AppCompatActivity {
         return password.length() > 6 && password.length() < 12;
     }
 
-//    public int getPreferenceValueGameMode()
-//    {
-//        SharedPreferences sharedPreferences = getSharedPreferences(SETTING_GAME_MODE, 0);
-//        //basic preference is classic gamemode
-//        return sharedPreferences.getInt("GameMode",CLASSIC_MODE);
-//    }
 
     public void setPreferenceGameMode(int thePreference)
     {

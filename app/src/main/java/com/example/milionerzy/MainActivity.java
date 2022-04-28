@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.milionerzy.admin.AdminActivity;
 import com.example.milionerzy.game.GameActivity;
+import com.example.milionerzy.game.SetGroupsAndGameLengthActivity;
 import com.example.milionerzy.settings.SettingsActivity;
 import com.example.milionerzy.validator.PasswordService;
 
@@ -37,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
 
 
+    private Button openSetGroupsAndGameLengthActivityToTest; // only for testing
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setLayoutComponents();
         passwordService = new PasswordService();
+        openSetGroupsAndGameLengthActivityToTest = findViewById(R.id.openSetGroupsAndGameLength_ForTEst);
+        openSetGroupsAndGameLengthActivityToTest.setOnClickListener(b -> {
+            Intent intent = new Intent(this, SetGroupsAndGameLengthActivity.class);
+            startActivity(intent);
+        });
     }
     @SuppressLint("InlinedApi")
     private void setLayoutComponents() {

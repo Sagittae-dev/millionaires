@@ -18,6 +18,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class DatabaseService extends SQLiteOpenHelper {
+    private static final String TAG = "DatabaseService";
 
     private static final String QUESTIONS = "QUESTIONS";
     private static final String Q_CONTENT = "QCONTENT";
@@ -63,12 +64,12 @@ public class DatabaseService extends SQLiteOpenHelper {
 
             long insert = db.insert(QUESTIONS, null, cv);
             if (insert == -1) {
-                Log.i("DatabaseException", "Exception in saving to database (-1)");
+                Log.i(TAG, "Exception in saving to database (-1)");
                 throw new DatabaseException();
             }
-            Log.i("Database", "Question Added to database");
+            Log.i(TAG, "Question Added to database");
         } catch (Exception | DatabaseException e) {
-            Log.i("DatabaseException", "Exception in saving to database");
+            Log.i(TAG, "Exception in saving to database");
         }
     }
 
@@ -90,15 +91,18 @@ public class DatabaseService extends SQLiteOpenHelper {
         return listToReturn;
     }
 
-    public void deleteQuestion(int id) {
-        try {
-            String query = " DELETE FROM " + QUESTIONS + " WHERE ID = " + id;
-            SQLiteDatabase db = getWritableDatabase();
-            db.execSQL(query);
-            Log.i("DatabaseService", "query executed");
+    public int getAmountOfQuestions() throws DatabaseException {
+        String query = " SELECT COUNT(*) FROM " + QUESTIONS;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            int amount = cursor.getInt(0);
+            cursor.close();
             db.close();
-        } catch (Exception e) {
-            Log.i("DatabaseService", "Problem with deleteQuestion method");
+            return amount;
+        } else {
+            Log.i(TAG, "can't get amount of questions");
+            throw new DatabaseException();
         }
     }
 
@@ -110,26 +114,26 @@ public class DatabaseService extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             question = createQuestionFromCursor(cursor);
         } else {
-            Log.i("DatabaseService", "Exception in getting question");
+            Log.i(TAG, "Exception in getting question");
             throw new DatabaseException();
         }
-        Log.i("DatabaseService", "Query Executed");
+        Log.i(TAG, "Query Executed");
         cursor.close();
         db.close();
 
         return question;
     }
 
-    private Question createQuestionFromCursor(Cursor cursor) {
-        int id = cursor.getInt(0);
-        String contentOfQuestion = cursor.getString(1);
-        String answerA = cursor.getString(2);
-        String answerB = cursor.getString(3);
-        String answerC = cursor.getString(4);
-        String answerD = cursor.getString(5);
-        String correctAnswer = cursor.getString(6);
-
-        return new Question(id, contentOfQuestion, answerA, answerB, answerC, answerD, correctAnswer);
+    public void deleteQuestion(int id) {
+        try {
+            String query = " DELETE FROM " + QUESTIONS + " WHERE ID = " + id;
+            SQLiteDatabase db = getWritableDatabase();
+            db.execSQL(query);
+            Log.i(TAG, "query executed");
+            db.close();
+        } catch (Exception e) {
+            Log.i(TAG, "Problem with deleteQuestion method");
+        }
     }
 
     public void editExistQuestion(int id, Question question) throws DatabaseException {
@@ -146,8 +150,21 @@ public class DatabaseService extends SQLiteOpenHelper {
             db.execSQL(query);
             db.close();
         } catch (Exception e) {
-            Log.i("DatabaseException", "Exception when editing in Database");
+            Log.i(TAG, "Exception when editing in Database");
             throw new DatabaseException();
         }
     }
+
+    private Question createQuestionFromCursor(Cursor cursor) {
+        int id = cursor.getInt(0);
+        String contentOfQuestion = cursor.getString(1);
+        String answerA = cursor.getString(2);
+        String answerB = cursor.getString(3);
+        String answerC = cursor.getString(4);
+        String answerD = cursor.getString(5);
+        String correctAnswer = cursor.getString(6);
+
+        return new Question(id, contentOfQuestion, answerA, answerB, answerC, answerD, correctAnswer);
+    }
+
 }

@@ -9,11 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".game.SetGroupsAndGameLengthActivity"></activity>
         <activity
             android:name=".settings.SettingsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_settings"
-            android:theme="@style/AppTheme.NoActionBar.Fullscreen"></activity>
+            android:theme="@style/AppTheme.NoActionBar.Fullscreen" />
         <activity
             android:name=".game.GameActivity"
             android:exported="false" />

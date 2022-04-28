@@ -18,6 +18,7 @@ import com.example.milionerzy.exceptions.DatabaseException;
 import com.example.milionerzy.model.Question;
 import com.example.milionerzy.services.QuestionService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Executors;
@@ -43,14 +44,13 @@ public class GameActivity extends AppCompatActivity {
         setAllListeners();
     }
 
-    private void setScore(int newScore){
-        if (newScore>=0) {
+    private void setScore(int newScore) {
+        if (newScore >= 0) {
             score = newScore;
-        }
-        else score = 0;
+        } else score = 0;
     }
 
-     private void randomizeNumberOfQuestion() {
+    private void randomizeNumberOfQuestion() {
         Random random = new Random();
         numberOfQuestion = random.nextInt(questionList.size());
     }
@@ -76,17 +76,16 @@ public class GameActivity extends AppCompatActivity {
 //            }
             findViewById(id).setBackgroundResource(R.drawable.correctanswer);
             setScore(score + 2);
-        }
-        else {
+        } else {
             findViewById(id).setBackgroundResource(R.drawable.wronganswer);
-            Log.i("GameActivity","nieprawidlowa odp");
+            Log.i("GameActivity", "nieprawidlowa odp");
             setScore(--score);
         }
 
         scheduledExecutorService.schedule(() -> {
             findViewById(id).setBackgroundResource(R.drawable.guzik1);
             getNextQuestion();
-        }, 1,TimeUnit.SECONDS);
+        }, 1, TimeUnit.SECONDS);
     }
 
     @SuppressLint("SetTextI18n")
@@ -96,8 +95,7 @@ public class GameActivity extends AppCompatActivity {
         if (!questionList.isEmpty()) {
             randomizeNumberOfQuestion();
             getQuestionFromList();
-        }else
-        {
+        } else {
             finishGame();
         }
     }
@@ -113,9 +111,10 @@ public class GameActivity extends AppCompatActivity {
         QuestionServiceComponent questionServiceComponent = DaggerQuestionServiceComponent.create();
         QuestionService questionService = questionServiceComponent.getQuestionService();
         questionService.setDatabaseContext(this);
+        questionList = new ArrayList<>();
         try {
             questionList = questionService.getAllQuestions();
-        }catch (DatabaseException de){
+        } catch (DatabaseException de) {
             Log.i("GameActivity", "Exception during getting questions");
         }
 
@@ -129,6 +128,7 @@ public class GameActivity extends AppCompatActivity {
 //        questionList.add(c);
 
     }
+
     private void findAllViews() {
         findViewById(R.id.textViewScoreText);
         scoreNumberTextView = findViewById(R.id.textViewScoreNumber);
@@ -139,6 +139,7 @@ public class GameActivity extends AppCompatActivity {
         answerCButton = findViewById(R.id.buttonAnswerC);
         answerDButton = findViewById(R.id.buttonAnswerD);
     }
+
     private void setAllListeners() {
         finishGameButton.setOnClickListener(v -> finishGame());
         answerAButton.setOnClickListener(v -> checkAnswer(v.getId(), questionList.get(numberOfQuestion).getCorrectAnswer()));
@@ -146,6 +147,7 @@ public class GameActivity extends AppCompatActivity {
         answerCButton.setOnClickListener(v -> checkAnswer(v.getId(), questionList.get(numberOfQuestion).getCorrectAnswer()));
         answerDButton.setOnClickListener(v -> checkAnswer(v.getId(), questionList.get(numberOfQuestion).getCorrectAnswer()));
     }
+
     private void removeQuestionFromList() {
         questionList.remove(numberOfQuestion);
     }
