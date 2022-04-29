@@ -25,7 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.milionerzy.admin.AdminActivity;
 import com.example.milionerzy.game.GameActivity;
-import com.example.milionerzy.game.SetGroupsAndGameLengthActivity;
+import com.example.milionerzy.game.SetTeamsAndGameLengthActivity;
 import com.example.milionerzy.game.party.PartyGameActivity;
 import com.example.milionerzy.settings.SettingsActivity;
 import com.example.milionerzy.validator.PasswordService;
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             if (mode.equals(CLASSIC_MODE.toString())) {
                startGame(GameActivity.class);
             } else if (mode.equals(PARTY_MODE.toString())) {
-                startGame(SetGroupsAndGameLengthActivity.class);
+                startGame(SetTeamsAndGameLengthActivity.class);
             }
         }
 

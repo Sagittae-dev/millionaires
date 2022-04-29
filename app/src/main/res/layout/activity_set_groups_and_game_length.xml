@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:fadingEdge="horizontal"
-    tools:context=".game.SetGroupsAndGameLengthActivity">
+    tools:context=".game.SetTeamsAndGameLengthActivity">
 
     <TextView
         android:id="@+id/setGroupsAndGameLength_Title_TextView"

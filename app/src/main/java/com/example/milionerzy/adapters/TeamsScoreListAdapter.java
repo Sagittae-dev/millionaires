@@ -1,12 +1,26 @@
+
 package com.example.milionerzy.adapters;
 
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class GroupsScoreListAdapter extends RecyclerView.Adapter<GroupsScoreListAdapter.ViewHolder> {
+import com.example.milionerzy.model.Team;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class TeamsScoreListAdapter extends RecyclerView.Adapter<TeamsScoreListAdapter.ViewHolder> {
+    private Context context;
+    private List<Team> teams = new ArrayList<>();
+
+    public TeamsScoreListAdapter(Context context, List<Team> teams) {
+        this.context = context;
+        this.teams = teams;
+    }
 
     @NonNull
     @Override

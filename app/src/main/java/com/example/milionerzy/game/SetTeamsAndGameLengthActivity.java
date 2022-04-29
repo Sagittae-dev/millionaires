@@ -14,23 +14,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.milionerzy.R;
 import com.example.milionerzy.exceptions.SetGameLengthServiceException;
-import com.example.milionerzy.exceptions.SetGroupsServiceException;
-import com.example.milionerzy.services.SaveGroupsAndGameLengthService;
+import com.example.milionerzy.exceptions.SetTeamsServiceException;
+import com.example.milionerzy.services.SaveTeamsAndGameLengthService;
 import com.example.milionerzy.services.SetGameLengthService;
-import com.example.milionerzy.services.SetGroupsService;
+import com.example.milionerzy.services.SetTeamsService;
 
 import java.util.List;
 
-public class SetGroupsAndGameLengthActivity extends AppCompatActivity {
+public class SetTeamsAndGameLengthActivity extends AppCompatActivity {
     private static final String TAG = "SetGroupsAndGameLength";
 
     private EditText addNewGroupEditText;
     private Button addNewGroupButton, addCycleButton, removeCycleButton, saveAndPlayButton;
     private TextView amountOfCyclesTextView;
     private SetGameLengthService setGameLengthService;
-    private SetGroupsService setGroupsService;
+    private SetTeamsService setTeamsService;
     private ListView listOfGroups_ListView;
-    private SaveGroupsAndGameLengthService saveGroupsAndGameLengthService;
+    private SaveTeamsAndGameLengthService saveTeamsAndGameLengthService;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -38,7 +38,7 @@ public class SetGroupsAndGameLengthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_groups_and_game_length);
         setGameLengthService = new SetGameLengthService(this);
-        setGroupsService = new SetGroupsService(this);
+        setTeamsService = new SetTeamsService(this);
         setAllViews();
         setMethodForAddAndRemoveCycleButtons();
         setListOfGroups();
@@ -71,17 +71,17 @@ public class SetGroupsAndGameLengthActivity extends AppCompatActivity {
     }
 
     private void onSaveButtonClickListenerMethod() {
-        saveGroupsAndGameLengthService = new SaveGroupsAndGameLengthService(setGroupsService, setGameLengthService, this);
+        saveTeamsAndGameLengthService = new SaveTeamsAndGameLengthService(setTeamsService, setGameLengthService, this);
         try {
-            saveGroupsAndGameLengthService.actionAfterTapOnSaveGroupsAndPlayButton();
-        } catch (SetGroupsServiceException | SetGameLengthServiceException e) {
+            saveTeamsAndGameLengthService.actionAfterTapOnSaveGroupsAndPlayButton();
+        } catch (SetTeamsServiceException | SetGameLengthServiceException e) {
             Log.i(TAG, "Exception on saving and going to Party Game");
         }
     }
 
     private void setListOfGroups() {
         listOfGroups_ListView.setOnItemLongClickListener((adapterView, view, position, l) -> {
-            List<String> listOfGroups = setGroupsService.removeGroupFromList(position);
+            List<String> listOfGroups = setTeamsService.removeGroupFromList(position);
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listOfGroups);
             listOfGroups_ListView.setAdapter(arrayAdapter);
             return true;
@@ -91,12 +91,12 @@ public class SetGroupsAndGameLengthActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void addNewGroupFromEditTextToList(EditText newGroupEditText) {
         try {
-            List<String> listOfGroups = setGroupsService.addNewGroupFromEditTextToList(newGroupEditText);
+            List<String> listOfGroups = setTeamsService.addNewGroupFromEditTextToList(newGroupEditText);
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listOfGroups);
             listOfGroups_ListView.setAdapter(arrayAdapter);
             newGroupEditText.getText().clear();
             Log.i(TAG, "group added succesfully" + listOfGroups.toString());
-        } catch (SetGroupsServiceException e) {
+        } catch (SetTeamsServiceException e) {
             Log.i(TAG, "Exception in adding new group");
         }
     }
@@ -116,7 +116,7 @@ public class SetGroupsAndGameLengthActivity extends AppCompatActivity {
 
     private void addCycle() {
         try {
-            int amountOfGroups = setGroupsService.getGroupsListSize();
+            int amountOfGroups = setTeamsService.getGroupsListSize();
             int amountOfCycles = setGameLengthService.addNewCycleOfQuestions(amountOfGroups);
             setAmountOfCycleTextView(amountOfCycles);
 

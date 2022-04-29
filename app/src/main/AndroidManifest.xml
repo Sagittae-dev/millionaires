@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".game.party.PartyGameActivity"></activity>
-        <activity android:name=".game.SetGroupsAndGameLengthActivity" />
+        <activity android:name=".game.SetTeamsAndGameLengthActivity" />
         <activity
             android:name=".settings.SettingsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

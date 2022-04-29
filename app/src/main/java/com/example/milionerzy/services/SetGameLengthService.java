@@ -1,6 +1,9 @@
 package com.example.milionerzy.services;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -9,7 +12,8 @@ import com.example.milionerzy.exceptions.DatabaseException;
 import com.example.milionerzy.exceptions.SetGameLengthServiceException;
 import com.example.milionerzy.interfaces.BaseService;
 
-public class SetGameLengthService implements BaseService {
+public class SetGameLengthService implements BaseService<Integer> {
+    public static final String CYCLES_FROM_SP = "CyclesAmount";
     private static final String TAG = "SetGameLengthService";
 
     private final Context context;
@@ -33,6 +37,7 @@ public class SetGameLengthService implements BaseService {
             throw new SetGameLengthServiceException();
         } else {
             currentAmountOfCycles = currentAmountOfCycles + 1;
+            saveResultInSharedPreferences(currentAmountOfCycles);
             Log.i(TAG, "Incremented amount of cycles" + currentAmountOfCycles);
             return currentAmountOfCycles;
         }
@@ -65,6 +70,15 @@ public class SetGameLengthService implements BaseService {
 
     public int getCurrentAmountOfCycles() {
         return currentAmountOfCycles;
+    }
+
+
+    @Override
+    public void saveResultInSharedPreferences(Integer toSave) {
+        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor sharedPreferences = ((Activity)context).getPreferences(Context.MODE_PRIVATE).edit();
+
+        sharedPreferences.putInt(CYCLES_FROM_SP, toSave);
+        sharedPreferences.apply();
     }
 
     @Override
