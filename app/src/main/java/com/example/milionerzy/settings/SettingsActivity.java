@@ -36,13 +36,20 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        chooseModeRadioGroup = findViewById(R.id.chooseModeRadioGroup);
         wrongPasswordTextView = findViewById(R.id.wrongTypeOfNewPasswordTextView);
         setAllViews();
         passwordService = new PasswordService();
     }
 
     private void setAllViews() {
+
+        chooseModeRadioGroup = findViewById(R.id.chooseModeRadioGroup);
+        SharedPreferences sharedPreferences = getSharedPreferences(SETTING_GAME_MODE,MODE_PRIVATE);
+        if(sharedPreferences.getString(SETTING_GAME_MODE, CLASSIC_MODE.toString()).equals(CLASSIC_MODE.toString()))
+        {
+            chooseModeRadioGroup.check(R.id.classicRadioButton);
+        }
+        else chooseModeRadioGroup.check(R.id.partyRadioButton);
         passwordChangedCorrectlyTextView = findViewById(R.id.passwordChangedCorrectlyTextView);
         Button setNewPasswordButton = findViewById(R.id.saveNewPasswordButton);
         setNewPasswordButton.setOnClickListener(b -> openPasswordRequestDialog());
