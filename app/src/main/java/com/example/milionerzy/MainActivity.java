@@ -26,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.milionerzy.admin.AdminActivity;
 import com.example.milionerzy.game.GameActivity;
 import com.example.milionerzy.game.SetGroupsAndGameLengthActivity;
+import com.example.milionerzy.game.party.PartyGameActivity;
 import com.example.milionerzy.settings.SettingsActivity;
 import com.example.milionerzy.validator.PasswordService;
 
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     private PasswordService passwordService;
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         passwordService = new PasswordService();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint("InlinedApi")
     private void setLayoutComponents() {
         Button startGameButton;
@@ -52,6 +54,12 @@ public class MainActivity extends AppCompatActivity {
         Button logAsAdminButton = findViewById(R.id.logAsAdminButton);
         logAsAdminButton.setOnClickListener(v -> onAdminButtonClickListener());
 
+        Button testButton = findViewById(R.id.testnewActivityButton);
+        testButton.setOnClickListener(b -> {
+            Intent intent = new Intent(this, PartyGameActivity.class);
+            startActivity(intent);
+        });
+
         ImageButton openSettingsButton = findViewById(R.id.openSettingsButton);
         openSettingsButton.setOnClickListener(b -> {
             @SuppressLint({"NewApi", "LocalSuppress"}) Intent intent = new Intent(this, SettingsActivity.class);
@@ -59,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint("InlinedApi")
     private void checkMode() {
         SharedPreferences sharedPreferences = getSharedPreferences(SETTING_GAME_MODE, Context.MODE_PRIVATE);
