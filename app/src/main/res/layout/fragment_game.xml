@@ -1,14 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:background="@drawable/background"
     tools:context=".game.party.GameFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
+        android:id="@+id/imageViewBehindQuestion"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="262dp"
+        android:src="@drawable/tlo1" />
 
+    <TextView
+        android:id="@+id/textViewQuestionContentPartyMode"
+        android:layout_width="match_parent"
+        android:layout_height="263dp"
+        android:gravity="center"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/buttonAAnswerPartyMode"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/guzik1"
+        android:translationY="262dp"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/buttonBAnswerPartyMode"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/guzik1"
+        android:translationY="354dp"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/buttonCAnswerPartyMode"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/guzik1"
+        android:translationY="446dp"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/buttonDAnswerPartyMode"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/guzik1"
+        android:translationY="538dp"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/textViewCurrentGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:translationY="630dp" />
+
+    <Button
+        android:id="@+id/buttonNextQuestionPartyMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:text="@string/next_question"
+        android:translationY="-5dp" />
 </FrameLayout>
