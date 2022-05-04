@@ -17,10 +17,9 @@ import com.example.milionerzy.services.QuestionService;
 
 import java.util.List;
 
+public class AdminModeDatabaseActivity extends AppCompatActivity {
 
-public class QuestionsDatabaseActivity extends AppCompatActivity {
-
-    QuestionService questionService;
+    private QuestionService questionService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +30,7 @@ public class QuestionsDatabaseActivity extends AppCompatActivity {
         questionService.setDatabaseContext(this);
         setRecyclerView();
     }
-    //TODO edit question method
+
     private void setRecyclerView() {
         try {
             List<Question> questionList = questionService.getAllQuestions();

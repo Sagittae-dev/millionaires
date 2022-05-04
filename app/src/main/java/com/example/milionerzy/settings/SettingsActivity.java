@@ -1,8 +1,6 @@
 package com.example.milionerzy.settings;
 
-import static com.example.milionerzy.enums.GameModes.CLASSIC_MODE;
-import static com.example.milionerzy.enums.GameModes.PARTY_MODE;
-
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -23,6 +21,9 @@ import com.example.milionerzy.R;
 import com.example.milionerzy.enums.GameModes;
 import com.example.milionerzy.validator.PasswordService;
 
+import static com.example.milionerzy.enums.GameModes.CLASSIC_MODE;
+import static com.example.milionerzy.enums.GameModes.PARTY_MODE;
+
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class SettingsActivity extends AppCompatActivity {
     public static final String SETTING_GAME_MODE = "GameMode";
@@ -30,6 +31,7 @@ public class SettingsActivity extends AppCompatActivity {
     private RadioGroup chooseModeRadioGroup;
     private TextView wrongPasswordTextView, passwordChangedCorrectlyTextView, passwordsAreTheSameTextView, wrongOldPasswordTextView;
     private PasswordService passwordService;
+    private boolean userHasPassword;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -39,17 +41,16 @@ public class SettingsActivity extends AppCompatActivity {
         wrongPasswordTextView = findViewById(R.id.wrongTypeOfNewPasswordTextView);
         setAllViews();
         passwordService = new PasswordService();
+        userHasPassword = passwordService.userHasPassword(this);
     }
 
     private void setAllViews() {
 
         chooseModeRadioGroup = findViewById(R.id.chooseModeRadioGroup);
-        SharedPreferences sharedPreferences = getSharedPreferences(SETTING_GAME_MODE,MODE_PRIVATE);
-        if(sharedPreferences.getString(SETTING_GAME_MODE, CLASSIC_MODE.toString()).equals(CLASSIC_MODE.toString()))
-        {
+        SharedPreferences sharedPreferences = getSharedPreferences(SETTING_GAME_MODE, MODE_PRIVATE);
+        if (sharedPreferences.getString(SETTING_GAME_MODE, CLASSIC_MODE.toString()).equals(CLASSIC_MODE.toString())) {
             chooseModeRadioGroup.check(R.id.classicRadioButton);
-        }
-        else chooseModeRadioGroup.check(R.id.partyRadioButton);
+        } else chooseModeRadioGroup.check(R.id.partyRadioButton);
         passwordChangedCorrectlyTextView = findViewById(R.id.passwordChangedCorrectlyTextView);
         Button setNewPasswordButton = findViewById(R.id.saveNewPasswordButton);
         setNewPasswordButton.setOnClickListener(b -> openPasswordRequestDialog());
@@ -57,6 +58,7 @@ public class SettingsActivity extends AppCompatActivity {
         saveSettingsButton.setOnClickListener(view -> setGameModeFromRadioButtons());
     }
 
+    @SuppressLint("SetTextI18n")
     private void openPasswordRequestDialog() {
         LayoutInflater li = LayoutInflater.from(this);
         View passwordRequestView = li.inflate(R.layout.change_password_dialog, null);
@@ -64,8 +66,14 @@ public class SettingsActivity extends AppCompatActivity {
         wrongPasswordTextView = passwordRequestView.findViewById(R.id.wrongTypeOfNewPasswordTextView);
         passwordsAreTheSameTextView = passwordRequestView.findViewById(R.id.passwordsAreTehSameTextView);
         wrongOldPasswordTextView = passwordRequestView.findViewById(R.id.wrongOldPasswordTextView);
+        final TextView title = passwordRequestView.findViewById(R.id.changePasswordTitle);
         final EditText oldPasswordInput = passwordRequestView.findViewById(R.id.oldPasswordInChangeDialogEditText);
         final EditText newPasswordInput = passwordRequestView.findViewById(R.id.newPasswordInChangeDialogEditText);
+        if (!userHasPassword) {
+            title.setText("Create Your password");
+            oldPasswordInput.setHint("New password");
+            newPasswordInput.setHint("Repeat new password");
+        }
         alertDialogBuilder.setView(passwordRequestView);
         alertDialogBuilder
                 .setPositiveButton("Check", null)
@@ -73,31 +81,33 @@ public class SettingsActivity extends AppCompatActivity {
 
         final AlertDialog dialog = alertDialogBuilder.create();
         dialog.show();
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(b -> showWrongPasswordMessageOrSavePassword(oldPasswordInput, newPasswordInput, dialog));
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(b ->
+                showWrongPasswordMessageOrSavePassword(oldPasswordInput, newPasswordInput, dialog));
     }
 
-
+    @SuppressLint("SetTextI18n")
     private void showWrongPasswordMessageOrSavePassword(EditText oldPasswordInput, EditText newPasswordInput, AlertDialog dialog) {
-        if (!passwordService.isCorrectFormat(oldPasswordInput)) {
-            passwordsAreTheSameTextView.setVisibility(View.GONE);
-            wrongPasswordTextView.setVisibility(View.VISIBLE);
-            wrongOldPasswordTextView.setVisibility(View.GONE);
+        if (!validatePasswordFormat(oldPasswordInput)) {
             return;
         }
-        if (!passwordService.isCorrectFormat(newPasswordInput)) {
-            passwordsAreTheSameTextView.setVisibility(View.GONE);
-            wrongPasswordTextView.setVisibility(View.VISIBLE);
-            wrongOldPasswordTextView.setVisibility(View.GONE);
+        if (!validatePasswordFormat(newPasswordInput)) {
             return;
         }
-        if (!passwordService.passwordIsCorrect(this, oldPasswordInput)) {
+
+        if (!passwordService.passwordIsCorrect(this, oldPasswordInput) && userHasPassword) {
             passwordsAreTheSameTextView.setVisibility(View.GONE);
             wrongPasswordTextView.setVisibility(View.GONE);
             wrongOldPasswordTextView.setVisibility(View.VISIBLE);
             return;
         }
-        if (passwordService.twoPasswordMatches(oldPasswordInput, newPasswordInput)) {
+        if (passwordService.twoPasswordMatches(oldPasswordInput, newPasswordInput) && userHasPassword) {
             wrongPasswordTextView.setVisibility(View.GONE);
+            passwordsAreTheSameTextView.setVisibility(View.VISIBLE);
+            wrongOldPasswordTextView.setVisibility(View.GONE);
+        }
+        if (!passwordService.twoPasswordMatches(oldPasswordInput, newPasswordInput) && !userHasPassword) {
+            wrongPasswordTextView.setVisibility(View.GONE);
+            passwordsAreTheSameTextView.setText("Passwords no matches");
             passwordsAreTheSameTextView.setVisibility(View.VISIBLE);
             wrongOldPasswordTextView.setVisibility(View.GONE);
         } else {
@@ -107,19 +117,27 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    public void setPreferenceGameMode(GameModes thePreference)
-    {
-        SharedPreferences.Editor editor = getSharedPreferences(SETTING_GAME_MODE,MODE_PRIVATE).edit();
+    private boolean validatePasswordFormat(EditText passwordInput) {
+        if (!passwordService.isCorrectFormat(passwordInput)) {
+            passwordsAreTheSameTextView.setVisibility(View.GONE);
+            wrongPasswordTextView.setVisibility(View.VISIBLE);
+            wrongOldPasswordTextView.setVisibility(View.GONE);
+            return false;
+        }
+        return true;
+    }
+
+    public void setPreferenceGameMode(GameModes thePreference) {
+        SharedPreferences.Editor editor = getSharedPreferences(SETTING_GAME_MODE, MODE_PRIVATE).edit();
         editor.putString(SETTING_GAME_MODE, thePreference.toString());
         editor.apply();
     }
 
     private void setGameModeFromRadioButtons() {
-        if (chooseModeRadioGroup.getCheckedRadioButtonId() == R.id.partyRadioButton){
+        if (chooseModeRadioGroup.getCheckedRadioButtonId() == R.id.partyRadioButton) {
             setPreferenceGameMode(PARTY_MODE);
             Log.i("SettingsActivity", "GameMode set to party mode");
-        } else
-        {
+        } else {
             setPreferenceGameMode(CLASSIC_MODE);
             Log.i("SettingsActivity", "GameMode set to classic mode");
         }

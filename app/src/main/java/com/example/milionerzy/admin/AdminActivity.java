@@ -18,9 +18,9 @@ import com.example.milionerzy.DaggerQuestionServiceComponent;
 import com.example.milionerzy.QuestionServiceComponent;
 import com.example.milionerzy.R;
 import com.example.milionerzy.exceptions.DatabaseException;
+import com.example.milionerzy.exceptions.EmptyFieldException;
 import com.example.milionerzy.model.Question;
 import com.example.milionerzy.services.QuestionService;
-import com.example.milionerzy.exceptions.EmptyFieldException;
 
 public class AdminActivity extends AppCompatActivity {
 
@@ -53,7 +53,6 @@ public class AdminActivity extends AppCompatActivity {
         questionService = questionServiceComponent.getQuestionService();
         questionService.setDatabaseContext(this);
         findAllViews(this);
-        Log.i("AdminActivity", "Oncreate invoked");
         fillEditTextsIfEditMode();
     }
 
@@ -108,7 +107,7 @@ public class AdminActivity extends AppCompatActivity {
         saveQuestionButton = findViewById(R.id.saveQuestionButton);
         Button goToDatabaseActivityButton = findViewById(R.id.goToQuestionDatabaseActivity);
         goToDatabaseActivityButton.setOnClickListener(v -> {
-            Intent intent = new Intent(this, QuestionsDatabaseActivity.class);
+            Intent intent = new Intent(this, AdminModeDatabaseActivity.class);
             startActivity(intent);
         });
         saveQuestionButton.setOnClickListener(v -> saveQuestion());
@@ -129,7 +128,7 @@ public class AdminActivity extends AppCompatActivity {
         try {
             Question question = createQuestionFromEditTexts();
             questionService.editQuestion(id, question);
-            Intent intent = new Intent(this, QuestionsDatabaseActivity.class);
+            Intent intent = new Intent(this, AdminModeDatabaseActivity.class);
             startActivity(intent);
             finish();
         } catch (EmptyFieldException | DatabaseException e) {

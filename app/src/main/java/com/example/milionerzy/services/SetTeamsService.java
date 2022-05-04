@@ -1,10 +1,10 @@
 package com.example.milionerzy.services;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -20,7 +20,7 @@ import java.util.List;
 public class SetTeamsService implements BaseService<List<String>> {
     public static final String TEAMS_FROM_SP = "TeamsList";
     private final Context context;
-    private final List<String> groupsList = new ArrayList<>();
+    private final List<String> teamsList = new ArrayList<>();
 
     public SetTeamsService(Context context) {
         this.context = context;
@@ -31,7 +31,7 @@ public class SetTeamsService implements BaseService<List<String>> {
         String newGroupName = newGroupEditText.getText().toString();
         groupNameIsValid(newGroupName);
 
-        if (groupsList.size() >= 8) {
+        if (teamsList.size() >= 8) {
             showToastWithMessage("You can set max 8 groups", Toast.LENGTH_SHORT);
             throw new SetTeamsServiceException();
         }
@@ -39,15 +39,15 @@ public class SetTeamsService implements BaseService<List<String>> {
             showToastWithMessage("Group with name: " + newGroupName + " already exist.", Toast.LENGTH_SHORT);
             throw new SetTeamsServiceException();
         } else {
-            groupsList.add(newGroupName);
-            saveResultInSharedPreferences(groupsList);
+            teamsList.add(newGroupName);
+            saveResultInSharedPreferences(teamsList);
         }
-        return groupsList;
+        return teamsList;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private boolean checkListContainsGroupWithTheSameName(String newGroupName) {
-        return groupsList.stream().anyMatch(groupName -> groupName.equals(newGroupName));
+        return teamsList.stream().anyMatch(groupName -> groupName.equals(newGroupName));
     }
 
     private void groupNameIsValid(String newGroupName) throws SetTeamsServiceException {
@@ -66,25 +66,21 @@ public class SetTeamsService implements BaseService<List<String>> {
     }
 
     public List<String> removeGroupFromList(int position) {
-        groupsList.remove(position);
-        saveResultInSharedPreferences(groupsList);
-        return groupsList;
+        teamsList.remove(position);
+        saveResultInSharedPreferences(teamsList);
+        return teamsList;
     }
 
     public int getGroupsListSize() {
-        return groupsList.size();
-    }
-
-    public List<String> getGroupsList() {
-        return groupsList;
+        return teamsList.size();
     }
 
     @Override
     public void saveResultInSharedPreferences(List<String> toSave) {
-        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor sharedPreferences = ((Activity)context).getPreferences(Context.MODE_PRIVATE).edit();
-
-        sharedPreferences.putStringSet(TEAMS_FROM_SP, new HashSet<>(groupsList));
-        sharedPreferences.apply();
+        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor sharedPreferencesEditor = context.getSharedPreferences(TEAMS_FROM_SP, Context.MODE_PRIVATE).edit();
+        Log.i("SetTeamsService", teamsList.toString());
+        sharedPreferencesEditor.putStringSet(TEAMS_FROM_SP, new HashSet<>(teamsList));
+        sharedPreferencesEditor.apply();
     }
 
     @Override

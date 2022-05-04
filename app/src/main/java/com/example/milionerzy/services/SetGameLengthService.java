@@ -7,10 +7,10 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.milionerzy.database.DatabaseService;
 import com.example.milionerzy.exceptions.DatabaseException;
 import com.example.milionerzy.exceptions.SetGameLengthServiceException;
 import com.example.milionerzy.interfaces.BaseService;
+import com.example.milionerzy.repositories.QuestionsRepository;
 
 public class SetGameLengthService implements BaseService<Integer> {
     public static final String CYCLES_FROM_SP = "CyclesAmount";
@@ -44,9 +44,9 @@ public class SetGameLengthService implements BaseService<Integer> {
     }
 
     private int getAmountOfQuestionsFromDatabase() {
-        DatabaseService databaseService = new DatabaseService(context);
+        QuestionsRepository questionsRepository = new QuestionsRepository(context);
         try {
-            int amount = databaseService.getAmountOfQuestions();
+            int amount = questionsRepository.getAmountOfQuestions();
             Log.i(TAG, "Amount questions from database: " + amount);
             return amount;
         } catch (DatabaseException e) {
@@ -75,7 +75,7 @@ public class SetGameLengthService implements BaseService<Integer> {
 
     @Override
     public void saveResultInSharedPreferences(Integer toSave) {
-        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor sharedPreferences = ((Activity)context).getPreferences(Context.MODE_PRIVATE).edit();
+        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor sharedPreferences = ((Activity) context).getPreferences(Context.MODE_PRIVATE).edit();
 
         sharedPreferences.putInt(CYCLES_FROM_SP, toSave);
         sharedPreferences.apply();

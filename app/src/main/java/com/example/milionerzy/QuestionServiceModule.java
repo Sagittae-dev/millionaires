@@ -2,7 +2,7 @@ package com.example.milionerzy;
 
 import android.content.Context;
 
-import com.example.milionerzy.database.DatabaseService;
+import com.example.milionerzy.repositories.QuestionsRepository;
 import com.example.milionerzy.validator.QuestionValidator;
 
 import dagger.Module;
@@ -12,10 +12,10 @@ import dagger.Provides;
 public class QuestionServiceModule {
 
     @Provides
-    DatabaseService provideDatabaseService() {
+    QuestionsRepository provideDatabaseService() {
         MainActivity mainActivity = new MainActivity();
         Context context = mainActivity.getBaseContext();
-        return new DatabaseService(context);
+        return new QuestionsRepository(context);
     }
 
     @Provides

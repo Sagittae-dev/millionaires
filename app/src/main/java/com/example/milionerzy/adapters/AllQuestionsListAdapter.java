@@ -97,15 +97,15 @@ public class AllQuestionsListAdapter extends RecyclerView.Adapter<AllQuestionsLi
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView contentOfQuestionTextView;
-        TextView answerATextView;
-        TextView answerBTextView;
-        TextView answerCTextView;
-        TextView answerDTextView;
-        TextView correctAnswerTextView;
-        ConstraintLayout particularElementOfList;
-        Button removeButton;
-        Button editButton;
+        private final TextView contentOfQuestionTextView;
+        private final TextView answerATextView;
+        private final TextView answerBTextView;
+        private final TextView answerCTextView;
+        private final TextView answerDTextView;
+        private final TextView correctAnswerTextView;
+        private final ConstraintLayout particularElementOfList;
+        private final Button removeButton;
+        private final Button editButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

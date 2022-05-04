@@ -59,7 +59,7 @@ public class PasswordService {
     private String getPasswordFromSharedPreferences(Context context) throws NoPasswordException {
         setSharedPreferences(context);
         String password = sharedPreferences.getString("encryptedPassword", null);
-        Log.i("Settings", password);
+//        Log.i("Settings", password);
         if (password != null) {
             return password;
         } else {
@@ -89,5 +89,14 @@ public class PasswordService {
     public void saveNewPasswordToSP(EditText passwordInput, Context context) {
         setSharedPreferences(context);
         sharedPreferences.edit().putString("encryptedPassword", passwordInput.getText().toString()).apply();
+    }
+
+    public boolean userHasPassword(Context context) {
+        try {
+            getPasswordFromSharedPreferences(context);
+        } catch (NoPasswordException e) {
+            return false;
+        }
+        return true;
     }
 }
