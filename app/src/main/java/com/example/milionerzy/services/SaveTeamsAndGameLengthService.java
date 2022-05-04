@@ -24,6 +24,8 @@ public class SaveTeamsAndGameLengthService implements BaseService<Object> {
     public void actionAfterTapOnSaveGroupsAndPlayButton() throws SetTeamsServiceException, SetGameLengthServiceException {
         final int groupsListSize = setTeamsService.getGroupsListSize();
         final int currentAmountOfCycles = setGameLengthService.getCurrentAmountOfCycles();
+        final int gameLength = getGameLength(groupsListSize, currentAmountOfCycles);
+
         final int amountOfAvailableQuestionsInDB = setGameLengthService.getAmountOfAvailableQuestions();
         if (currentAmountOfCycles < 1) {
             showToastWithMessage("You can set one or more cycles", Toast.LENGTH_SHORT);
@@ -32,17 +34,21 @@ public class SaveTeamsAndGameLengthService implements BaseService<Object> {
             showToastWithMessage("You must set at least two groups to go next", Toast.LENGTH_SHORT);
             throw new SetTeamsServiceException();
         }
-        if ((groupsListSize * currentAmountOfCycles) > amountOfAvailableQuestionsInDB) {
+        if ((gameLength) > amountOfAvailableQuestionsInDB) {
             showToastWithMessage("You set too much groups or cycles because have only: " + amountOfAvailableQuestionsInDB + " available questions in database.", Toast.LENGTH_LONG);
             throw new SetGameLengthServiceException();
         }
-        moveToPartyGame();
+        moveToPartyGame(gameLength);
     }
 
-    private void moveToPartyGame() {
-        Intent intent = new Intent(context, PartyGameActivity.class);  //TODO uncomment when PartyGameActivity ready and remove toast from this method
+    private int getGameLength(int groupsListSize, int currentAmountOfCycle){
+        return groupsListSize * currentAmountOfCycle;
+    }
+
+    private void moveToPartyGame(int gameLength) {
+        Intent intent = new Intent(context, PartyGameActivity.class);
+        intent.putExtra( "gameLength" , gameLength);
         context.startActivity(intent);
-//        showToastWithMessage("You will redirected to Party Game when ready", Toast.LENGTH_SHORT);
     }
 
     @Override
