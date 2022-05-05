@@ -27,6 +27,7 @@
         android:layout_height="88dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/guzik1"
+        android:tag="A"
         android:translationY="262dp"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -36,6 +37,7 @@
         android:layout_height="88dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/guzik1"
+        android:tag="B"
         android:translationY="354dp"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -45,6 +47,7 @@
         android:layout_height="88dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/guzik1"
+        android:tag="C"
         android:translationY="446dp"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -54,6 +57,7 @@
         android:layout_height="88dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/guzik1"
+        android:tag="D"
         android:translationY="538dp"
         tools:ignore="SpeakableTextPresentCheck" />
 

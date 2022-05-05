@@ -1,17 +1,14 @@
 package com.example.milionerzy.game.party;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.milionerzy.R;
-import com.example.milionerzy.model.PartyGame;
 
 public class GameFragment extends Fragment {
 
@@ -22,7 +19,6 @@ public class GameFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private Button buttonA, buttonB, buttonC, buttonD, buttonNextQuestion;
-    PartyGame partyGame = new PartyGame();
     public GameFragment() {
     }
 
@@ -49,12 +45,10 @@ public class GameFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game, container, false);
-
         buttonA = view.findViewById(R.id.buttonAAnswerPartyMode);
         buttonB = view.findViewById(R.id.buttonBAnswerPartyMode);
         buttonC = view.findViewById(R.id.buttonCAnswerPartyMode);
         buttonD = view.findViewById(R.id.buttonDAnswerPartyMode);
-
         return view;
     }
 }
