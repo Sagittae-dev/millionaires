@@ -27,7 +27,6 @@ public class PartyGameService {
     private final TeamsListService teamsListService;
     private PartyGame partyGame;
     private Context context;
-//    private final List<Question> questionList;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public PartyGameService(Context context) throws DatabaseException, PartyGameServiceException {
@@ -82,6 +81,17 @@ public class PartyGameService {
         return finalQuestionList;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public boolean answerIsCorrect(String answer) {
+        String correctAnswer = getCurrentQuestion().getCorrectAnswer();
+        teamsListService.addPointToTeam(getCurrentTeam());
+        return answer.equals(correctAnswer);
+    }
+
+    public String getCorrectAnswer() {
+        return getCurrentQuestion().getCorrectAnswer();
+    }
+
     public void setNextQuestion() {
         partyGame.setNumberOfCurrentQuestion(partyGame.getNumberOfCurrentQuestion() + 1);
     }
@@ -123,7 +133,7 @@ public class PartyGameService {
         partyGame.setFinished(true);
     }
 
-    public boolean checkAnswer(char buttonTag, char correctAnswer) {
-        return buttonTag == correctAnswer;
-    }
+//    public boolean checkAnswer(String buttonTag, String correctAnswer) {
+//        return buttonTag.equals(correctAnswer);
+//    }
 }
