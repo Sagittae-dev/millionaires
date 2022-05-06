@@ -2,6 +2,7 @@ package com.example.milionerzy.game.party;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,15 +23,27 @@ public class PartyGameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party_game);
-        partyGameService = new PartyGameService(this);
+
+        createPartyGame();
         setFragments();
+
+//      Uncomment this line when need fragment
+//      @SuppressLint("ResourceType") GameFragment fragment = (GameFragment) getSupportFragmentManager().findFragmentById(fragment_game);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void createPartyGame() {
         try {
-            partyGameService.createPartyGame();
-        } catch (PartyGameServiceException | DatabaseException partyGameServiceException) {
-            partyGameServiceException.printStackTrace();
+            partyGameService = new PartyGameService(this);
+        } catch (PartyGameServiceException | DatabaseException de) {
+            Log.i("PartyGameActivity", "Unexpected problem with PartyGameService");
+            finishActivity(0);
         }
     }
 
+    public PartyGameService getPartyGameService() {
+        return partyGameService;
+    }
 
     private void setFragments() {
         TabLayout gameScoreTabLayout = findViewById(R.id.gameScoreTabLayout);

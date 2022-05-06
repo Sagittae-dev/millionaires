@@ -1,5 +1,6 @@
 package com.example.milionerzy.model;
 
+import java.util.Date;
 import java.util.List;
 
 public class PartyGame {
@@ -12,6 +13,7 @@ public class PartyGame {
     private byte numberOfCurrentTeam;
     private Team winner;
     private List<Team> teamList;
+    private Date date;
 
 
     public int getId() {
@@ -68,5 +70,13 @@ public class PartyGame {
 
     public void setTeamList(List<Team> teamList) {
         this.teamList = teamList;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
