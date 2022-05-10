@@ -1,5 +1,6 @@
 package com.example.milionerzy.game.party;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,6 +50,7 @@ public class PartyGameActivity extends AppCompatActivity {
         return teamsScoreListAdapter;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void refreshScore() {
         teamsScoreListAdapter.notifyDataSetChanged();
     }

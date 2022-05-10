@@ -2,7 +2,6 @@ package com.example.milionerzy.game.party;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-import com.example.milionerzy.MainActivity;
 import com.example.milionerzy.R;
 import com.example.milionerzy.exceptions.PartyGameServiceException;
 import com.example.milionerzy.model.PartyGameDataToDisplay;
@@ -121,7 +119,7 @@ public class GameFragment extends Fragment {
 
     @SuppressLint("UseRequireInsteadOfGet")
     private void notifyScoreFragment() {
-        ((PartyGameActivity) getActivity()).refreshScore();
+        ((PartyGameActivity) Objects.requireNonNull(getActivity())).refreshScore();
     }
 
     private void showQuestionContentAndAnswers() {
@@ -169,8 +167,7 @@ public class GameFragment extends Fragment {
                 .setPositiveButton("Finish Game", (dialog, id) -> {
                     //TODO save game to database
                     partyGameService.finishPartyGame();
-                    Intent intent = new Intent(getContext(), MainActivity.class);
-                    startActivity(intent);
+                    requireActivity().finish();
                     dialog.dismiss();
                 })
                 .create()

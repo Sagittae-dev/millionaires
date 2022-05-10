@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.example.milionerzy.exceptions.SetGameLengthServiceException;
 import com.example.milionerzy.exceptions.SetTeamsServiceException;
+import com.example.milionerzy.game.SetTeamsAndGameLengthActivity;
 import com.example.milionerzy.game.party.PartyGameActivity;
 import com.example.milionerzy.interfaces.BaseService;
 
@@ -49,6 +50,7 @@ public class SaveTeamsAndGameLengthService implements BaseService<Object> {
         Intent intent = new Intent(context, PartyGameActivity.class);
         intent.putExtra( "gameLength" , gameLength);
         context.startActivity(intent);
+        ((SetTeamsAndGameLengthActivity) context).finish();
     }
 
     @Override

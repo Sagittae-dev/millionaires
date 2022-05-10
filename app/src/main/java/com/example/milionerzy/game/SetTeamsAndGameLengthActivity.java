@@ -95,7 +95,7 @@ public class SetTeamsAndGameLengthActivity extends AppCompatActivity {
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listOfGroups);
             listOfGroups_ListView.setAdapter(arrayAdapter);
             newGroupEditText.getText().clear();
-            Log.i(TAG, "group added succesfully" + listOfGroups.toString());
+            Log.i(TAG, "group added successfully" + listOfGroups.toString());
         } catch (SetTeamsServiceException e) {
             Log.i(TAG, "Exception in adding new group");
         }

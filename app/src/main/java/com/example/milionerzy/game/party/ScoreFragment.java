@@ -31,11 +31,10 @@ public class ScoreFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_score, container, false);
 
-        TeamsScoreListAdapter teamsScoreListAdapter = ((PartyGameActivity) getActivity()).getTeamsScoreListAdapter();
+        TeamsScoreListAdapter teamsScoreListAdapter = ((PartyGameActivity) requireActivity()).getTeamsScoreListAdapter();
         RecyclerView teamList_RecyclerView = view.findViewById(R.id.groupsListRecyclerView_ScoreFragment);
         teamList_RecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         teamList_RecyclerView.setAdapter(teamsScoreListAdapter);
-        teamsScoreListAdapter.notifyDataSetChanged();
         return view;
     }
 }
