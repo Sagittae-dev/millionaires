@@ -44,14 +44,12 @@ public class TeamsListService {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public Team addPointToTeam(Team team) {
+    public void addPointToTeam(Team team) {
         int currentScore = team.getScore();
         team.setScore(currentScore + 1);
-        return team;
     }
 
     public List<Team> getTeams() {
         return teams;
     }
-
 }

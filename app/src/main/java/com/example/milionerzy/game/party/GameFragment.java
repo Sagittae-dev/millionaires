@@ -1,5 +1,7 @@
 package com.example.milionerzy.game.party;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,13 +14,16 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.milionerzy.R;
+import com.example.milionerzy.exceptions.PartyGameServiceException;
 import com.example.milionerzy.model.PartyGameDataToDisplay;
 import com.example.milionerzy.services.PartyGameService;
+
+import java.util.Objects;
 
 public class GameFragment extends Fragment {
 
     private Button buttonA, buttonB, buttonC, buttonD, buttonNextQuestion;
-    private TextView contentOfQuestionTextView, currentGroupTextView;
+    private TextView contentOfQuestionTextView, currentGroupTextView, currentGroupScoreTextView;
     private PartyGameService partyGameService;
     private PartyGameDataToDisplay partyGameDataToDisplay;
     private View mainView;
@@ -33,16 +38,45 @@ public class GameFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mainView = inflater.inflate(R.layout.fragment_game, container, false);
-        contentOfQuestionTextView = mainView.findViewById(R.id.textViewQuestionContentPartyMode);
-        currentGroupTextView = mainView.findViewById(R.id.textViewCurrentGroup);
-        setAnswerButtons(mainView);
-        getPartyGameDataToDisplay();
+        setAllViews();
+        setPartyGameService();
+        setPartyDataToDisplay();
         showQuestionContentAndAnswers();
+        showCurrentTeam();
+        showCurrentTeamScore();
         return mainView;
     }
 
-    private void getPartyGameDataToDisplay() {
-        partyGameService = ((PartyGameActivity) getActivity()).getPartyGameService();
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void setAllViews() {
+        contentOfQuestionTextView = mainView.findViewById(R.id.textViewQuestionContentPartyMode);
+        currentGroupTextView = mainView.findViewById(R.id.textViewCurrentGroup);
+        currentGroupScoreTextView = mainView.findViewById(R.id.textViewCurrentGroupScore);
+        setAnswerButtons(mainView);
+    }
+
+    private void setActionAfterClickButtonNextQuestion() {
+        try {
+            partyGameService.goToNextQuestion();
+        } catch (PartyGameServiceException e) {
+            showFinishGameAlertDialog();
+            clearAllFields();
+            return;
+        }
+        setPartyDataToDisplay();
+        showQuestionContentAndAnswers();
+        showCurrentTeam();
+        clearButtonsBackgrounds();
+        showCurrentTeamScore();
+        setButtonsClickable(true);
+    }
+
+    @SuppressLint("UseRequireInsteadOfGet")
+    private void setPartyGameService() {
+        partyGameService = ((PartyGameActivity) Objects.requireNonNull(getActivity())).getPartyGameService();
+    }
+
+    private void setPartyDataToDisplay() {
         partyGameDataToDisplay = partyGameService.getPartyGameDataToDisplay();
     }
 
@@ -56,24 +90,38 @@ public class GameFragment extends Fragment {
         buttonC.setOnClickListener(b -> setActionAfterCheckAnswer(buttonC.getTag().toString()));
         buttonD = view.findViewById(R.id.buttonDAnswerPartyMode);
         buttonD.setOnClickListener(b -> setActionAfterCheckAnswer(buttonD.getTag().toString()));
+        buttonNextQuestion = view.findViewById(R.id.buttonNextQuestionPartyMode);
+        buttonNextQuestion.setOnClickListener(b -> setActionAfterClickButtonNextQuestion());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void setActionAfterCheckAnswer(String tag) {
         Button checkedButton = mainView.findViewWithTag(tag);
         if (!partyGameService.answerIsCorrect(tag)) {
-            checkedButton.setBackgroundResource(R.drawable.wronganswer);
-            String correctAnswerTag = partyGameService.getCorrectAnswer();
-            Button correctButton = mainView.findViewWithTag(correctAnswerTag);
-            correctButton.setBackgroundResource(R.drawable.correctanswer);
-
-        }else{
+            actionIfAnswerIsIncorrect(checkedButton);
+        } else {
             checkedButton.setBackgroundResource(R.drawable.correctanswer);
+            actualizeCurrentTeamScoreAfterCorrectAnswer();
         }
+        notifyScoreFragment();
         setButtonsClickable(false);
     }
 
-    private void showQuestionContentAndAnswers(){
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void actionIfAnswerIsIncorrect(Button checkedButton) {
+        checkedButton.setBackgroundResource(R.drawable.wronganswer);
+        String correctAnswerTag = partyGameService.getCorrectAnswer();
+        Button correctButton = mainView.findViewWithTag(correctAnswerTag);
+        correctButton.setBackgroundResource(R.drawable.correctanswer);
+    }
+
+
+    @SuppressLint("UseRequireInsteadOfGet")
+    private void notifyScoreFragment() {
+        ((PartyGameActivity) getActivity()).refreshScore();
+    }
+
+    private void showQuestionContentAndAnswers() {
         contentOfQuestionTextView.setText(partyGameDataToDisplay.getContentOfCurrentQuestion());
         buttonA.setText(partyGameDataToDisplay.getCurrentAnswerA());
         buttonB.setText(partyGameDataToDisplay.getCurrentAnswerB());
@@ -81,10 +129,53 @@ public class GameFragment extends Fragment {
         buttonD.setText(partyGameDataToDisplay.getCurrentAnswerD());
     }
 
-    private void setButtonsClickable(boolean clickable){
+    private void showCurrentTeam() {
+        String currentTeamToDisplay = partyGameDataToDisplay.getCurrentTeamName();
+        currentGroupTextView.setText(currentTeamToDisplay);
+    }
+
+    private void showCurrentTeamScore() {
+        int currentTeamScore = partyGameDataToDisplay.getCurrentTeamScore();
+        currentGroupScoreTextView.setText(String.valueOf(currentTeamScore));
+    }
+
+    private void actualizeCurrentTeamScoreAfterCorrectAnswer() {
+        int currentTeamScore = partyGameDataToDisplay.getCurrentTeamScore();
+        currentGroupScoreTextView.setText(String.valueOf(currentTeamScore + 1));
+    }
+
+    private void setButtonsClickable(boolean clickable) {
         buttonA.setClickable(clickable);
         buttonB.setClickable(clickable);
         buttonC.setClickable(clickable);
         buttonD.setClickable(clickable);
+        buttonNextQuestion.setClickable(!clickable);
+    }
+
+    private void clearButtonsBackgrounds() {
+        buttonA.setBackgroundResource(R.drawable.default_button_background);
+        buttonB.setBackgroundResource(R.drawable.default_button_background);
+        buttonC.setBackgroundResource(R.drawable.default_button_background);
+        buttonD.setBackgroundResource(R.drawable.default_button_background);
+    }
+
+    private void showFinishGameAlertDialog() {
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Game is finished")
+                .setCancelable(false)
+                .setPositiveButton("Ok", (dialog, id) -> dialog.dismiss())
+                .create()
+                .show();
+    }
+
+    private void clearAllFields() {
+        contentOfQuestionTextView.setText("");
+        buttonA.setText("");
+        buttonB.setText("");
+        buttonC.setText("");
+        buttonD.setText("");
+        clearButtonsBackgrounds();
+        currentGroupScoreTextView.setText("");
+        currentGroupTextView.setText("");
     }
 }

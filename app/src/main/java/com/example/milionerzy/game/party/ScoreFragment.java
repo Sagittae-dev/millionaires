@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.milionerzy.R;
 import com.example.milionerzy.adapters.TeamsScoreListAdapter;
-import com.example.milionerzy.services.TeamsListService;
 
 public class ScoreFragment extends Fragment {
 
@@ -24,7 +23,6 @@ public class ScoreFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -33,8 +31,7 @@ public class ScoreFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_score, container, false);
 
-        TeamsListService teamsListService = new TeamsListService(getContext());
-        TeamsScoreListAdapter teamsScoreListAdapter = new TeamsScoreListAdapter(teamsListService.getTeams());
+        TeamsScoreListAdapter teamsScoreListAdapter = ((PartyGameActivity) getActivity()).getTeamsScoreListAdapter();
         RecyclerView teamList_RecyclerView = view.findViewById(R.id.groupsListRecyclerView_ScoreFragment);
         teamList_RecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         teamList_RecyclerView.setAdapter(teamsScoreListAdapter);

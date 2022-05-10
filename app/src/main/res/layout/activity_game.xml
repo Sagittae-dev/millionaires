@@ -14,13 +14,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="164dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/guzik1"
+        android:background="@drawable/default_button_background"
         android:tag="C"
+        app:layout_constraintBottom_toTopOf="@id/buttonAnswerD"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewBackgroundForQuestion"
-        app:layout_constraintBottom_toTopOf="@id/buttonAnswerD"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
@@ -30,13 +30,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="246dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/guzik1"
+        android:background="@drawable/default_button_background"
         android:tag="D"
+        app:layout_constraintBottom_toTopOf="@id/finishGameButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewBackgroundForQuestion"
-        app:layout_constraintBottom_toTopOf="@id/finishGameButton"
         tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
     <Button
@@ -46,13 +46,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="82dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/guzik1"
+        android:background="@drawable/default_button_background"
         android:tag="B"
+        app:layout_constraintBottom_toTopOf="@id/buttonAnswerC"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewBackgroundForQuestion"
-        app:layout_constraintBottom_toTopOf="@id/buttonAnswerC"
         tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
     <Button
@@ -61,13 +61,13 @@
         android:layout_height="80dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/guzik1"
+        android:background="@drawable/default_button_background"
         android:tag="A"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAnswerB"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewBackgroundForQuestion"
-        app:layout_constraintBottom_toTopOf="@+id/buttonAnswerB"
         tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
     <ImageView
@@ -106,7 +106,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="150dp"
         android:layout_marginBottom="18dp"
-        android:background="@drawable/guzik1"
+        android:background="@drawable/default_button_background"
         android:text="@string/FinishGameButtonText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

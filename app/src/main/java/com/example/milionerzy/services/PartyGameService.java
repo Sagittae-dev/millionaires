@@ -25,8 +25,8 @@ import java.util.Random;
 
 public class PartyGameService {
     private final TeamsListService teamsListService;
-    private PartyGame partyGame;
-    private Context context;
+    private final PartyGame partyGame;
+    private final Context context;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public PartyGameService(Context context) throws DatabaseException, PartyGameServiceException {
@@ -49,6 +49,10 @@ public class PartyGameService {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private List<Team> getTeamsList() {
         return teamsListService.getTeams();
+    }
+
+    public TeamsListService getTeamsListService() {
+        return teamsListService;
     }
 
     private int getGameLength() throws PartyGameServiceException {
@@ -84,16 +88,15 @@ public class PartyGameService {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public boolean answerIsCorrect(String answer) {
         String correctAnswer = getCurrentQuestion().getCorrectAnswer();
-        teamsListService.addPointToTeam(getCurrentTeam());
-        return answer.equals(correctAnswer);
+        boolean answerIsCorrect = answer.equals(correctAnswer);
+        if (answerIsCorrect) {
+            teamsListService.addPointToTeam(getCurrentTeam());
+        }
+        return answerIsCorrect;
     }
 
     public String getCorrectAnswer() {
         return getCurrentQuestion().getCorrectAnswer();
-    }
-
-    public void setNextQuestion() {
-        partyGame.setNumberOfCurrentQuestion(partyGame.getNumberOfCurrentQuestion() + 1);
     }
 
     public PartyGameDataToDisplay getPartyGameDataToDisplay() {
@@ -122,18 +125,29 @@ public class PartyGameService {
     }
 
     public void setNextTeam() {
-        if (partyGame.getNumberOfCurrentTeam() < partyGame.getTeamList().size() - 1) {
-            partyGame.setNumberOfCurrentTeam((byte) (partyGame.getNumberOfCurrentTeam() + 1));
+        int numberOfCurrentTeam = partyGame.getNumberOfCurrentTeam();
+
+        if (numberOfCurrentTeam < partyGame.getTeamList().size() - 1) {
+            partyGame.setNumberOfCurrentTeam((byte) (numberOfCurrentTeam + 1));
         } else {
             partyGame.setNumberOfCurrentTeam((byte) 0);
         }
     }
 
+    public void setNextQuestion() throws PartyGameServiceException {
+        int listSize = partyGame.getQuestionList().size();
+        int nrOfCurrentQuestion = partyGame.getNumberOfCurrentQuestion();
+        if (nrOfCurrentQuestion < listSize - 1) {
+            partyGame.setNumberOfCurrentQuestion(partyGame.getNumberOfCurrentQuestion() + 1);
+        } else throw new PartyGameServiceException();
+    }
+
+    public void goToNextQuestion() throws PartyGameServiceException {
+        setNextTeam();
+        setNextQuestion();
+    }
+
     public void finishPartyGame() {
         partyGame.setFinished(true);
     }
-
-//    public boolean checkAnswer(String buttonTag, String correctAnswer) {
-//        return buttonTag.equals(correctAnswer);
-//    }
 }

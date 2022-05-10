@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,13 +10,13 @@
     <ImageView
         android:id="@+id/imageViewBehindQuestion"
         android:layout_width="match_parent"
-        android:layout_height="262dp"
+        android:layout_height="230dp"
         android:src="@drawable/tlo1" />
 
     <TextView
         android:id="@+id/textViewQuestionContentPartyMode"
         android:layout_width="match_parent"
-        android:layout_height="263dp"
+        android:layout_height="220dp"
         android:gravity="center"
         android:textSize="24sp" />
 
@@ -26,9 +25,9 @@
         android:layout_width="match_parent"
         android:layout_height="88dp"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/guzik1"
+        android:background="@drawable/default_button_background"
         android:tag="A"
-        android:translationY="262dp"
+        android:translationY="250dp"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
@@ -36,9 +35,9 @@
         android:layout_width="match_parent"
         android:layout_height="88dp"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/guzik1"
+        android:background="@drawable/default_button_background"
         android:tag="B"
-        android:translationY="354dp"
+        android:translationY="342dp"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
@@ -46,9 +45,9 @@
         android:layout_width="match_parent"
         android:layout_height="88dp"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/guzik1"
+        android:background="@drawable/default_button_background"
         android:tag="C"
-        android:translationY="446dp"
+        android:translationY="434dp"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
@@ -56,18 +55,31 @@
         android:layout_width="match_parent"
         android:layout_height="88dp"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/guzik1"
+        android:background="@drawable/default_button_background"
         android:tag="D"
-        android:translationY="538dp"
+        android:translationY="526dp"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/textViewCurrentGroup"
-        android:layout_width="match_parent"
+        android:layout_width="177dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColor="#FFFFFF"
-        android:translationY="630dp" />
+        android:gravity="start"
+        android:textColor="#ADB5B5"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:translationY="618dp" />
+
+    <TextView
+        android:id="@+id/textViewCurrentGroupScore"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:gravity="end"
+        android:textColor="#FF9100"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:translationY="618dp" />
 
     <Button
         android:id="@+id/buttonNextQuestionPartyMode"
@@ -76,4 +88,5 @@
         android:layout_gravity="bottom|center"
         android:text="@string/next_question"
         android:translationY="-5dp" />
+
 </FrameLayout>

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.milionerzy.R;
+import com.example.milionerzy.adapters.TeamsScoreListAdapter;
 import com.example.milionerzy.exceptions.DatabaseException;
 import com.example.milionerzy.exceptions.PartyGameServiceException;
 import com.example.milionerzy.services.PartyGameService;
@@ -17,6 +18,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 public class PartyGameActivity extends AppCompatActivity {
     private PartyGameService partyGameService;
+    private TeamsScoreListAdapter teamsScoreListAdapter;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -25,10 +27,8 @@ public class PartyGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_party_game);
 
         createPartyGame();
+        teamsScoreListAdapter = new TeamsScoreListAdapter(partyGameService.getTeamsListService().getTeams());
         setFragments();
-
-//      Uncomment this line when need fragment
-//      @SuppressLint("ResourceType") GameFragment fragment = (GameFragment) getSupportFragmentManager().findFragmentById(fragment_game);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -43,6 +43,14 @@ public class PartyGameActivity extends AppCompatActivity {
 
     public PartyGameService getPartyGameService() {
         return partyGameService;
+    }
+
+    public TeamsScoreListAdapter getTeamsScoreListAdapter() {
+        return teamsScoreListAdapter;
+    }
+
+    public void refreshScore() {
+        teamsScoreListAdapter.notifyDataSetChanged();
     }
 
     private void setFragments() {

@@ -78,7 +78,7 @@ public class GameActivity extends AppCompatActivity {
         }
 
         scheduledExecutorService.schedule(() -> {
-            findViewById(id).setBackgroundResource(R.drawable.guzik1);
+            findViewById(id).setBackgroundResource(R.drawable.default_button_background);
             getNextQuestion();
         }, 1, TimeUnit.SECONDS);
     }

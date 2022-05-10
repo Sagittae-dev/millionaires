@@ -35,7 +35,7 @@ public class TeamsScoreListAdapter extends RecyclerView.Adapter<TeamsScoreListAd
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        List<Team> sortedTeamsList = teams.stream().sorted(Comparator.comparingInt(Team::getScore)).collect(Collectors.toList());
+        List<Team> sortedTeamsList = teams.stream().sorted(Comparator.comparingInt(Team::getScore).reversed()).collect(Collectors.toList());
         holder.scoreTextView.setText(String.valueOf(sortedTeamsList.get(position).getScore()));
         holder.teamNameTextView.setText(sortedTeamsList.get(position).getTeamName());
     }
