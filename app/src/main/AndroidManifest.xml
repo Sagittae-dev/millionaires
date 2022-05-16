@@ -9,24 +9,39 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".game.party.PartyGameActivity"></activity>
-        <activity android:name=".game.SetTeamsAndGameLengthActivity" />
+        <activity android:name=".game.party.PartyGameActivity"
+            android:screenOrientation="portrait"
+            ></activity>
+        <activity android:name=".game.SetTeamsAndGameLengthActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".settings.SettingsActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_settings"
             android:theme="@style/AppTheme.NoActionBar.Fullscreen" />
         <activity
             android:name=".game.GameActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
-        <activity android:name=".admin.AdminModeDatabaseActivity" />
-        <activity android:name=".admin.AdminActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".admin.AdminModeDatabaseActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".admin.AdminActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            >
+
             <intent-filter>
+
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
         <meta-data
