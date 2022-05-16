@@ -9,18 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".game.party.PartyGameActivity"></activity>
-        <activity android:name=".game.SetTeamsAndGameLengthActivity" />
+        <activity android:name=".activities.GamesHistoryActivity" />
+        <activity android:name=".activities.PartyGameActivity" />
+        <activity android:name=".activities.SetTeamsAndGameLengthActivity" />
         <activity
-            android:name=".settings.SettingsActivity"
+            android:name=".activities.SettingsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_settings"
             android:theme="@style/AppTheme.NoActionBar.Fullscreen" />
         <activity
-            android:name=".game.GameActivity"
+            android:name=".activities.GameActivity"
             android:exported="false" />
-        <activity android:name=".admin.AdminModeDatabaseActivity" />
-        <activity android:name=".admin.AdminActivity" />
+        <activity android:name=".activities.AdminModeDatabaseActivity" />
+        <activity android:name=".activities.AdminActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

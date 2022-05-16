@@ -1,6 +1,6 @@
 package com.example.milionerzy;
 
-import com.example.milionerzy.admin.AdminActivity;
+import com.example.milionerzy.activities.AdminActivity;
 import com.example.milionerzy.services.QuestionService;
 
 import dagger.Component;

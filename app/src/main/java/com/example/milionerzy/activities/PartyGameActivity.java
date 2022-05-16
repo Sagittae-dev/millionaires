@@ -1,4 +1,4 @@
-package com.example.milionerzy.game.party;
+package com.example.milionerzy.activities;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
@@ -13,6 +13,7 @@ import com.example.milionerzy.R;
 import com.example.milionerzy.adapters.TeamsScoreListAdapter;
 import com.example.milionerzy.exceptions.DatabaseException;
 import com.example.milionerzy.exceptions.PartyGameServiceException;
+import com.example.milionerzy.game.party.GameScoreFragmentsAdapter;
 import com.example.milionerzy.services.PartyGameService;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;

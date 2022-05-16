@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.milionerzy.DaggerQuestionServiceComponent;
 import com.example.milionerzy.QuestionServiceComponent;
 import com.example.milionerzy.R;
-import com.example.milionerzy.admin.AdminActivity;
+import com.example.milionerzy.activities.AdminActivity;
 import com.example.milionerzy.model.Question;
 import com.example.milionerzy.services.QuestionService;
 

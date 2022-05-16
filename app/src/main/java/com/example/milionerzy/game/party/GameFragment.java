@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.milionerzy.R;
+import com.example.milionerzy.activities.PartyGameActivity;
 import com.example.milionerzy.exceptions.PartyGameServiceException;
 import com.example.milionerzy.model.PartyGameDataToDisplay;
 import com.example.milionerzy.services.PartyGameService;
@@ -56,6 +57,7 @@ public class GameFragment extends Fragment {
         setAnswerButtons(mainView);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void setActionAfterClickButtonNextQuestion() {
         try {
             partyGameService.goToNextQuestion();
@@ -160,12 +162,13 @@ public class GameFragment extends Fragment {
         buttonD.setBackgroundResource(R.drawable.default_button_background);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void showFinishGameAlertDialog() {
         new AlertDialog.Builder(getActivity())
                 .setTitle("Game over")
                 .setCancelable(false)
                 .setPositiveButton("Finish Game", (dialog, id) -> {
-                    //TODO save game to database
+                    partyGameService.savePartyGameResultInDatabase();
                     partyGameService.finishPartyGame();
                     requireActivity().finish();
                     dialog.dismiss();

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:fadingEdge="horizontal"
-    tools:context=".game.SetTeamsAndGameLengthActivity">
+    tools:context=".activities.SetTeamsAndGameLengthActivity">
 
     <TextView
         android:id="@+id/setGroupsAndGameLength_Title_TextView"
@@ -26,8 +26,8 @@
         android:layout_marginTop="20dp"
         android:text="Type names of group. \n Click long on item to delete it"
         android:textAlignment="center"
-        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintEnd_toEndOf="@id/setGroupsAndGameLength_AddNewGroup_Button"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@id/setGroupsAndGameLength_AddNewGroup_EditText"
         app:layout_constraintTop_toBottomOf="@id/setGroupsAndGameLength_SaveGroupsAndPlay_Button" />
 
@@ -117,14 +117,14 @@
         android:id="@+id/setGroupsAndGameLength_SaveGroupsAndPlay_Button"
         android:layout_width="205dp"
         android:layout_height="48dp"
+        android:layout_marginTop="10dp"
         android:background="#2979FF"
         android:text="Save groups &amp; play"
-        app:layout_constraintTop_toBottomOf="@id/setGroupsAndGameLength_Title_TextView"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/setGroupsAndGameLength_Title_TextView"
         tools:layout_editor_absoluteX="113dp"
         tools:layout_editor_absoluteY="311dp" />
 

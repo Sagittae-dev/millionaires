@@ -4,10 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
+import com.example.milionerzy.activities.PartyGameActivity;
+import com.example.milionerzy.activities.SetTeamsAndGameLengthActivity;
 import com.example.milionerzy.exceptions.SetGameLengthServiceException;
 import com.example.milionerzy.exceptions.SetTeamsServiceException;
-import com.example.milionerzy.game.SetTeamsAndGameLengthActivity;
-import com.example.milionerzy.game.party.PartyGameActivity;
 import com.example.milionerzy.interfaces.BaseService;
 
 public class SaveTeamsAndGameLengthService implements BaseService<Object> {
@@ -42,13 +42,13 @@ public class SaveTeamsAndGameLengthService implements BaseService<Object> {
         moveToPartyGame(gameLength);
     }
 
-    private int getGameLength(int groupsListSize, int currentAmountOfCycle){
+    private int getGameLength(int groupsListSize, int currentAmountOfCycle) {
         return groupsListSize * currentAmountOfCycle;
     }
 
     private void moveToPartyGame(int gameLength) {
         Intent intent = new Intent(context, PartyGameActivity.class);
-        intent.putExtra( "gameLength" , gameLength);
+        intent.putExtra("gameLength", gameLength);
         context.startActivity(intent);
         ((SetTeamsAndGameLengthActivity) context).finish();
     }

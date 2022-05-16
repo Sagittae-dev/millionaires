@@ -1,4 +1,4 @@
-package com.example.milionerzy.admin;
+package com.example.milionerzy.activities;
 
 import android.os.Bundle;
 import android.util.Log;

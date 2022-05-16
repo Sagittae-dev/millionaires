@@ -58,6 +58,7 @@ public class QuestionsRepository extends DatabaseHelper {
                 throw new DatabaseException();
             }
             Log.i(TAG, "Question Added to database");
+            db.close();
         } catch (Exception | DatabaseException e) {
             Log.i(TAG, "Exception in saving to database");
         }
