@@ -1,4 +1,4 @@
-package com.example.milionerzy.game;
+package com.example.milionerzy.activities;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -30,7 +30,6 @@ public class SetTeamsAndGameLengthActivity extends AppCompatActivity {
     private SetGameLengthService setGameLengthService;
     private SetTeamsService setTeamsService;
     private ListView listOfGroups_ListView;
-    private SaveTeamsAndGameLengthService saveTeamsAndGameLengthService;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -71,7 +70,7 @@ public class SetTeamsAndGameLengthActivity extends AppCompatActivity {
     }
 
     private void onSaveButtonClickListenerMethod() {
-        saveTeamsAndGameLengthService = new SaveTeamsAndGameLengthService(setTeamsService, setGameLengthService, this);
+        SaveTeamsAndGameLengthService saveTeamsAndGameLengthService = new SaveTeamsAndGameLengthService(setTeamsService, setGameLengthService, this);
         try {
             saveTeamsAndGameLengthService.actionAfterTapOnSaveGroupsAndPlayButton();
         } catch (SetTeamsServiceException | SetGameLengthServiceException e) {

@@ -1,4 +1,4 @@
-package com.example.milionerzy.game;
+package com.example.milionerzy.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;

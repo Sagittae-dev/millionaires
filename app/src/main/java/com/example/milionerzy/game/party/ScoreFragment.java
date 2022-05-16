@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.milionerzy.R;
+import com.example.milionerzy.activities.PartyGameActivity;
 import com.example.milionerzy.adapters.TeamsScoreListAdapter;
 
 public class ScoreFragment extends Fragment {

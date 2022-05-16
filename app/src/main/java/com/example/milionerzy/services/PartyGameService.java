@@ -5,21 +5,32 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
 import com.example.milionerzy.DaggerQuestionServiceComponent;
 import com.example.milionerzy.QuestionServiceComponent;
 import com.example.milionerzy.exceptions.DatabaseException;
+import com.example.milionerzy.exceptions.PartyGameRepositoryException;
 import com.example.milionerzy.exceptions.PartyGameServiceException;
 import com.example.milionerzy.model.PartyGame;
 import com.example.milionerzy.model.PartyGameDataToDisplay;
+import com.example.milionerzy.model.PartyGameEntity;
 import com.example.milionerzy.model.Question;
 import com.example.milionerzy.model.Team;
+import com.example.milionerzy.repositories.PartyGameRepository;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.NoSuchElementException;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 //  TODO Make a findWinner method
 
@@ -43,6 +54,7 @@ public class PartyGameService {
         List<Question> questionList = createQuestionList();
         partyGame.setQuestionList(questionList);
         partyGame.setFinished(false);
+        partyGame.setDate(new Date());
         return partyGame;
     }
 
@@ -147,7 +159,55 @@ public class PartyGameService {
         setNextQuestion();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void finishPartyGame() {
         partyGame.setFinished(true);
     }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private String findWinners() {
+        List<Team> teamList = partyGame.getTeamList();
+        int maxPointTeam = teamList.stream().mapToInt(Team::getScore).max().orElseThrow(NoSuchElementException::new);
+        List<String> winnersList = teamList.stream().filter(t -> t.getScore() == maxPointTeam).map(Team::getTeamName).collect(Collectors.toList());
+        return convertWinnersListToString(winnersList, maxPointTeam);
+    }
+
+    private String convertWinnersListToString(List<String> winnersList, int score) {
+        StringBuilder result = new StringBuilder();
+        for (String name : winnersList) {
+            result.append(name).append(", ");
+        }
+        result.append(" with score: ").append(score);
+        return result.toString();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private PartyGameEntity createPartyGameEntity() {
+        PartyGameEntity partyGameEntity = new PartyGameEntity();
+        String winner = findWinners();
+        partyGameEntity.setWinner(winner);
+        String date = getTimeAndDate();
+        partyGameEntity.setDate(date);
+        return partyGameEntity;
+    }
+
+    private String getTimeAndDate() {
+        String pattern = "MM/dd/yyyy HH:mm:ss";
+        DateFormat dateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
+        Date date = Calendar.getInstance().getTime();
+        return dateFormat.format(date);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void savePartyGameResultInDatabase() {
+        PartyGameRepository partyGameRepository = new PartyGameRepository(context);
+        PartyGameEntity partyGameEntity = createPartyGameEntity();
+        try {
+            partyGameRepository.savePartyGame(partyGameEntity);
+        } catch (PartyGameRepositoryException e) {
+            Toast.makeText(context, "Fatal exception: Result was not saved in database", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.example.milionerzy.admin;
+package com.example.milionerzy.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -63,7 +63,7 @@ public class AdminActivity extends AppCompatActivity {
             Log.i("AdminActivity", "Id = " + id);
             if (id != -1) {
                 Question question = questionService.getQuestion(id);
-                Log.i("AdminActiviy", question.toString());
+                Log.i("AdminActivity", question.toString());
                 fillEditTextsWithRequestedQuestion_EditMode(question);
                 saveQuestionButton.setOnClickListener(b -> editQuestion(id));
             }
@@ -118,7 +118,7 @@ public class AdminActivity extends AppCompatActivity {
             Question question = createQuestionFromEditTexts();
             questionService.addQuestion(question);
             clearAllEditableFieldsAndRadioButtons();
-            Toast.makeText(this, "Question saved succesfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Question saved successfully", Toast.LENGTH_SHORT).show();
         } catch (EmptyFieldException e) {
             Toast.makeText(this, "Fill all required fields and check correct answer", Toast.LENGTH_SHORT).show();
         }
@@ -150,7 +150,7 @@ public class AdminActivity extends AppCompatActivity {
         if (radioButtonWithCorrectAnswer != null) {
             return radioButtonWithCorrectAnswer.getTag().toString();
         } else {
-            Log.i("Radiobutton", "Radiobuttons exception");
+            Log.i("Radiobutton", "Radio buttons exception");
             throw new EmptyFieldException();
         }
     }

@@ -15,12 +15,11 @@
 
     <Button
         android:id="@+id/logAsAdminButton"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
+        android:layout_width="65dp"
+        android:layout_height="47dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:text="ADMIN"
-        android:textSize="10dp"
+        android:textSize="12sp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,11 +27,21 @@
         android:id="@+id/openSettingsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/logAsAdminButton"
+        app:layout_constraintTop_toTopOf="@id/logAsAdminButton"
         app:srcCompat="@android:drawable/ic_menu_manage"
         tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="7dp"
-        app:layout_constraintEnd_toStartOf="@+id/logAsAdminButton"
-        app:layout_constraintTop_toTopOf="@id/logAsAdminButton"/>
+        tools:layout_editor_absoluteY="7dp" />
+
+    <Button
+        android:id="@+id/gamesHistoryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/historyButtonText"
+        app:layout_constraintEnd_toStartOf="@+id/openSettingsButton"
+        app:layout_constraintTop_toTopOf="@id/openSettingsButton"
+
+        />
 
     <ImageView
         android:id="@+id/mainActivityImage"
@@ -44,21 +53,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/tlo1"
-        tools:ignore="ContentDescription"
-        />
+        tools:ignore="ContentDescription" />
 
     <Button
         android:id="@+id/startGameButton"
         android:layout_width="382dp"
         android:layout_height="106dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:background="#BCBCBC"
+        android:background="#878685"
         android:text="@string/startGameButtonText"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintHorizontal_bias="0.615"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mainActivityImage" />
 
@@ -80,17 +88,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/mainActivityTitleTextView" />
-
-    <Button
-        android:id="@+id/testnewActivityButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="test new activity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainActivityImage" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

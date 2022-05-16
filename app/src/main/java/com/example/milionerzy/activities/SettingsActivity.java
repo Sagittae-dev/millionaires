@@ -1,4 +1,4 @@
-package com.example.milionerzy.settings;
+package com.example.milionerzy.activities;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -27,7 +27,6 @@ import static com.example.milionerzy.enums.GameModes.PARTY_MODE;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class SettingsActivity extends AppCompatActivity {
     public static final String SETTING_GAME_MODE = "GameMode";
-    Button saveSettingsButton;
     private RadioGroup chooseModeRadioGroup;
     private TextView wrongPasswordTextView, passwordChangedCorrectlyTextView, passwordsAreTheSameTextView, wrongOldPasswordTextView;
     private PasswordService passwordService;
@@ -54,7 +53,7 @@ public class SettingsActivity extends AppCompatActivity {
         passwordChangedCorrectlyTextView = findViewById(R.id.passwordChangedCorrectlyTextView);
         Button setNewPasswordButton = findViewById(R.id.saveNewPasswordButton);
         setNewPasswordButton.setOnClickListener(b -> openPasswordRequestDialog());
-        saveSettingsButton = findViewById(R.id.saveSettingsButton);
+        Button saveSettingsButton = findViewById(R.id.saveSettingsButton);
         saveSettingsButton.setOnClickListener(view -> setGameModeFromRadioButtons());
     }
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="?attr/fullscreenBackgroundColor"
     android:theme="@style/ThemeOverlay.Milionerzy.FullscreenContainer"
-    tools:context=".settings.SettingsActivity">
+    tools:context=".activities.SettingsActivity">
 
     <TextView
         android:id="@+id/settingsTitle"

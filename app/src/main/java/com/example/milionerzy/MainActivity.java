@@ -1,11 +1,6 @@
 package com.example.milionerzy;
 
 
-
-import static com.example.milionerzy.enums.GameModes.CLASSIC_MODE;
-import static com.example.milionerzy.enums.GameModes.PARTY_MODE;
-import static com.example.milionerzy.settings.SettingsActivity.SETTING_GAME_MODE;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -23,12 +18,16 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.milionerzy.admin.AdminActivity;
-import com.example.milionerzy.game.GameActivity;
-import com.example.milionerzy.game.SetTeamsAndGameLengthActivity;
-import com.example.milionerzy.game.party.PartyGameActivity;
-import com.example.milionerzy.settings.SettingsActivity;
+import com.example.milionerzy.activities.AdminActivity;
+import com.example.milionerzy.activities.GameActivity;
+import com.example.milionerzy.activities.GamesHistoryActivity;
+import com.example.milionerzy.activities.SetTeamsAndGameLengthActivity;
+import com.example.milionerzy.activities.SettingsActivity;
 import com.example.milionerzy.validator.PasswordService;
+
+import static com.example.milionerzy.activities.SettingsActivity.SETTING_GAME_MODE;
+import static com.example.milionerzy.enums.GameModes.CLASSIC_MODE;
+import static com.example.milionerzy.enums.GameModes.PARTY_MODE;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -54,11 +53,8 @@ public class MainActivity extends AppCompatActivity {
         Button logAsAdminButton = findViewById(R.id.logAsAdminButton);
         logAsAdminButton.setOnClickListener(v -> onAdminButtonClickListener());
 
-        Button testButton = findViewById(R.id.testnewActivityButton);
-        testButton.setOnClickListener(b -> {
-            Intent intent = new Intent(this, PartyGameActivity.class);
-            startActivity(intent);
-        });
+        Button historyButton = findViewById(R.id.gamesHistoryButton);
+        historyButton.setOnClickListener(b -> startActivity(new Intent(this, GamesHistoryActivity.class)));
 
         ImageButton openSettingsButton = findViewById(R.id.openSettingsButton);
         openSettingsButton.setOnClickListener(b -> {
@@ -72,17 +68,17 @@ public class MainActivity extends AppCompatActivity {
     private void checkMode() {
         SharedPreferences sharedPreferences = getSharedPreferences(SETTING_GAME_MODE, Context.MODE_PRIVATE);
         String mode = sharedPreferences.getString(SETTING_GAME_MODE, CLASSIC_MODE.toString());
-            if (mode.equals(CLASSIC_MODE.toString())) {
-               startGame(GameActivity.class);
-            } else if (mode.equals(PARTY_MODE.toString())) {
-                startGame(SetTeamsAndGameLengthActivity.class);
-            }
+        if (mode.equals(CLASSIC_MODE.toString())) {
+            startGame(GameActivity.class);
+        } else if (mode.equals(PARTY_MODE.toString())) {
+            startGame(SetTeamsAndGameLengthActivity.class);
         }
+    }
 
-        private void startGame(Class<?> activity){
-            Intent intent = new Intent(this, activity);
-            startActivity(intent);
-        }
+    private void startGame(Class<?> activity) {
+        Intent intent = new Intent(this, activity);
+        startActivity(intent);
+    }
 
     private void onAdminButtonClickListener() {
         if (passwordService.noSavedPassword(this)) {

@@ -14,7 +14,11 @@
             ></activity>
         <activity android:name=".game.SetTeamsAndGameLengthActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activities.GamesHistoryActivity" />
+        <activity android:name=".activities.PartyGameActivity" />
+        <activity android:name=".activities.SetTeamsAndGameLengthActivity" />
         <activity
+            android:name=".activities.SettingsActivity"
             android:name=".settings.SettingsActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -23,6 +27,7 @@
         <activity
             android:name=".game.GameActivity"
             android:screenOrientation="portrait"
+            android:name=".activities.GameActivity"
             android:exported="false" />
         <activity android:name=".admin.AdminModeDatabaseActivity"
             android:screenOrientation="portrait"
@@ -35,6 +40,9 @@
             android:screenOrientation="portrait"
             >
 
+        <activity android:name=".activities.AdminModeDatabaseActivity" />
+        <activity android:name=".activities.AdminActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
 
                 <action android:name="android.intent.action.MAIN" />
