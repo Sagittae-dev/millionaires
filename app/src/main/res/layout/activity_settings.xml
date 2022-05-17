@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/fullscreenBackgroundColor"
+    android:background="@drawable/background"
     android:theme="@style/ThemeOverlay.Milionerzy.FullscreenContainer"
     tools:context=".activities.SettingsActivity">
 
@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Settings"
+        android:textColor="#FFFFFF"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,6 +49,7 @@
         android:layout_width="95dp"
         android:layout_height="202dp"
         android:layout_marginTop="9dp"
+        android:background="#6B005754"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chooseGameModeTextView">
@@ -56,13 +58,15 @@
             android:id="@+id/classicRadioButton"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:text="@string/classicModeRadioButtonText" />
+            android:text="@string/classicModeRadioButtonText"
+            android:textColor="#FFFFFF" />
 
         <RadioButton
             android:id="@+id/partyRadioButton"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:text="@string/partyModeRadioButtonText" />
+            android:text="@string/partyModeRadioButtonText"
+            android:textColor="#FFFFFF" />
     </RadioGroup>
 
     <TextView
@@ -71,6 +75,7 @@
         android:layout_height="44dp"
         android:layout_marginTop="16dp"
         android:text="@string/chooseModeTextView"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/saveNewPasswordButton" />

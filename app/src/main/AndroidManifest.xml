@@ -19,13 +19,12 @@
         <activity android:name=".activities.SetTeamsAndGameLengthActivity" />
         <activity
             android:name=".activities.SettingsActivity"
-            android:name=".settings.SettingsActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_settings"
             android:theme="@style/AppTheme.NoActionBar.Fullscreen" />
         <activity
-            android:name=".game.GameActivity"
+
             android:screenOrientation="portrait"
             android:name=".activities.GameActivity"
             android:exported="false" />
@@ -35,10 +34,6 @@
         <activity android:name=".admin.AdminActivity"
             android:screenOrientation="portrait"
             />
-        <activity
-            android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            >
 
         <activity android:name=".activities.AdminModeDatabaseActivity" />
         <activity android:name=".activities.AdminActivity" />
