@@ -30,6 +30,7 @@ public class SaveTeamsAndGameLengthService implements BaseService<Object> {
         final int amountOfAvailableQuestionsInDB = setGameLengthService.getAmountOfAvailableQuestions();
         if (currentAmountOfCycles < 1) {
             showToastWithMessage("You can set one or more cycles", Toast.LENGTH_SHORT);
+            throw new SetGameLengthServiceException();
         }
         if (groupsListSize < 2) {
             showToastWithMessage("You must set at least two groups to go next", Toast.LENGTH_SHORT);
