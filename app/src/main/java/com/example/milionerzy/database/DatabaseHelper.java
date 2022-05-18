@@ -45,7 +45,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ANSWER_D + " TEXT NOT NULL," +
                 CORRECT_ANSWER + " TEXT NOT NULL)";
         db.execSQL(createTableStatement);
-        db.close();
     }
 
     private void createPartyGamesTable(SQLiteDatabase db) {
@@ -53,7 +52,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 WINNER + " TEXT NOT NULL, " +
                 PARTY_GAME_DATE + " TEXT NOT NULL)";
         db.execSQL(createTableStatement);
-        db.close();
     }
 
     @Override

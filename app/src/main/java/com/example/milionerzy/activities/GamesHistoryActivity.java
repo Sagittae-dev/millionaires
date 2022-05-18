@@ -44,7 +44,7 @@ public class GamesHistoryActivity extends AppCompatActivity {
         try {
             return partyGameRepository.getAllPartyGames();
         } catch (DatabaseException e) {
-            Toast.makeText(this, "List cannot be loaded", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "History List is empty. Play Your first game and result will be saved here.", Toast.LENGTH_LONG).show();
         }
         return new ArrayList<>();
     }

@@ -51,7 +51,11 @@ public class PartyGameRepository extends DatabaseHelper {
                 gamesList.add(gameHistoryItem);
 
             } while (cursor.moveToNext());
-        } else throw new DatabaseException();
+        } else {
+            Log.i("PartyGameRepository", "cursor: " + cursor.toString() + " list is empty");
+            throw new DatabaseException();
+        }
+
         cursor.close();
         db.close();
         return gamesList;
