@@ -5,17 +5,22 @@
       <map>
         <entry key="..\:/Users/xxx/AndroidStudioProjects/millionaires/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2115" />
         <entry key="..\:/Users/xxx/AndroidStudioProjects/millionaires/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
-        <entry key="..\:/Users/xxx/AndroidStudioProjects/millionaires/app/src/main/res/layout/activity_admin.xml" value="0.33" />
+        <entry key="..\:/Users/xxx/AndroidStudioProjects/millionaires/app/src/main/res/layout/activity_admin.xml" value="0.22" />
         <entry key="..\:/Users/xxx/AndroidStudioProjects/millionaires/app/src/main/res/layout/activity_game.xml" value="0.25" />
         <entry key="..\:/Users/xxx/AndroidStudioProjects/millionaires/app/src/main/res/layout/activity_game_party_mode.xml" value="0.25" />
+        <entry key="..\:/Users/xxx/AndroidStudioProjects/millionaires/app/src/main/res/layout/activity_games_history.xml" value="0.1675213675213675" />
         <entry key="..\:/Users/xxx/AndroidStudioProjects/millionaires/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/xxx/AndroidStudioProjects/millionaires/app/src/main/res/layout/activity_party_game.xml" value="0.33" />
-        <entry key="..\:/Users/xxx/AndroidStudioProjects/millionaires/app/src/main/res/layout/activity_questions_database.xml" value="0.1" />
-        <entry key="..\:/Users/xxx/AndroidStudioProjects/millionaires/app/src/main/res/layout/activity_settings.xml" value="0.33" />
+        <entry key="..\:/Users/xxx/AndroidStudioProjects/millionaires/app/src/main/res/layout/activity_questions_database.xml" value="0.25" />
+        <entry key="..\:/Users/xxx/AndroidStudioProjects/millionaires/app/src/main/res/layout/activity_set_groups_and_game_length.xml" value="0.1675213675213675" />
+        <entry key="..\:/Users/xxx/AndroidStudioProjects/millionaires/app/src/main/res/layout/activity_settings.xml" value="0.18" />
         <entry key="..\:/Users/xxx/AndroidStudioProjects/millionaires/app/src/main/res/layout/change_password_dialog.xml" value="0.1728395061728395" />
         <entry key="..\:/Users/xxx/AndroidStudioProjects/millionaires/app/src/main/res/layout/database_item_list.xml" value="0.1" />
         <entry key="..\:/Users/xxx/AndroidStudioProjects/millionaires/app/src/main/res/layout/fragment_game.xml" value="0.25" />
+        <entry key="..\:/Users/xxx/AndroidStudioProjects/millionaires/app/src/main/res/layout/fragment_score.xml" value="0.1675213675213675" />
+        <entry key="..\:/Users/xxx/AndroidStudioProjects/millionaires/app/src/main/res/layout/games_history_list_item.xml" value="0.1675213675213675" />
         <entry key="..\:/Users/xxx/AndroidStudioProjects/millionaires/app/src/main/res/layout/password_request.xml" value="0.1728395061728395" />
+        <entry key="..\:/Users/xxx/AndroidStudioProjects/millionaires/app/src/main/res/layout/teams_item_list.xml" value="0.1675213675213675" />
       </map>
     </option>
   </component>

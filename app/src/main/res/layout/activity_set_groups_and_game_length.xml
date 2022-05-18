@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@drawable/background"
     android:fadingEdge="horizontal"
     tools:context=".activities.SetTeamsAndGameLengthActivity">
 
@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Set game length and groups"
+        android:textColor="#FFFFFF"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,6 +27,7 @@
         android:layout_marginTop="20dp"
         android:text="Type names of group. \n Click long on item to delete it"
         android:textAlignment="center"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="@id/setGroupsAndGameLength_AddNewGroup_Button"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@id/setGroupsAndGameLength_AddNewGroup_EditText"
@@ -37,7 +39,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:hint="Type name of group"
+        android:importantForAutofill="no"
+        android:inputType="text"
         android:maxLength="14"
+        android:minHeight="48dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.04"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,17 +52,19 @@
 
     <Button
         android:id="@+id/setGroupsAndGameLength_AddNewGroup_Button"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:background="@android:drawable/ic_input_add"
         app:layout_constraintBottom_toBottomOf="@id/setGroupsAndGameLength_AddNewGroup_EditText"
-        app:layout_constraintStart_toEndOf="@+id/setGroupsAndGameLength_AddNewGroup_EditText" />
+        app:layout_constraintStart_toEndOf="@+id/setGroupsAndGameLength_AddNewGroup_EditText"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/setGroupsAndGameLength_SetAmountOfCyclesTitle_TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Set amount of cycles"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@id/setGroupsAndGameLength_AddingNewGroupTitle_TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -72,7 +81,8 @@
         app:layout_constraintEnd_toEndOf="@id/setGroupsAndGameLength_SetAmountOfCyclesTitle_TextView"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/setGroupsAndGameLength_SetAmountOfCyclesTitle_TextView"
-        app:layout_constraintTop_toBottomOf="@id/setGroupsAndGameLength_SetAmountOfCyclesTitle_TextView" />
+        app:layout_constraintTop_toBottomOf="@id/setGroupsAndGameLength_SetAmountOfCyclesTitle_TextView"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/setGroupsAndGameLength_CyclesAmount_TextView"
@@ -97,7 +107,8 @@
         app:layout_constraintEnd_toEndOf="@id/setGroupsAndGameLength_SetAmountOfCyclesTitle_TextView"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/setGroupsAndGameLength_SetAmountOfCyclesTitle_TextView"
-        app:layout_constraintTop_toBottomOf="@+id/setGroupsAndGameLength_CyclesAmount_TextView" />
+        app:layout_constraintTop_toBottomOf="@+id/setGroupsAndGameLength_CyclesAmount_TextView"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ListView
         android:id="@+id/setGroupsAndGameLength_GroupsList_ListView"
@@ -105,13 +116,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
+        android:background="#65977B7B"
         android:longClickable="true"
+        android:textFilterEnabled="false"
         app:layout_constraintEnd_toEndOf="@id/setGroupsAndGameLength_AddNewGroup_EditText"
         app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/setGroupsAndGameLength_AddNewGroup_EditText"
-        tools:layout_editor_absoluteX="53dp"
-        tools:layout_editor_absoluteY="88dp" />
+        app:layout_constraintTop_toBottomOf="@id/setGroupsAndGameLength_AddNewGroup_EditText" />
 
     <Button
         android:id="@+id/setGroupsAndGameLength_SaveGroupsAndPlay_Button"
@@ -125,7 +136,6 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/setGroupsAndGameLength_Title_TextView"
-        tools:layout_editor_absoluteX="113dp"
-        tools:layout_editor_absoluteY="311dp" />
+        tools:ignore="TextContrastCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

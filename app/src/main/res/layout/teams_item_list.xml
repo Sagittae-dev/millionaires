@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="4dp"
     android:layout_marginBottom="4dp"
-    android:background="#C62EB8F6"
+    android:background="#99303C42"
     app:layout_constraintCircleRadius="10dp">
 
     <TextView
@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:textColor="#2979FF"
+        android:textColor="#D5D5D5"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
