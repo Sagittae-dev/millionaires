@@ -35,32 +35,43 @@ import java.util.stream.Collectors;
 //  TODO Make a findWinner method
 
 public class PartyGameService {
-    private final TeamsListService teamsListService;
-    private final PartyGame partyGame;
+    private TeamsListService teamsListService;
+    private PartyGame partyGame;
     private final Context context;
 
+
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public PartyGameService(Context context) throws DatabaseException, PartyGameServiceException {
+    public PartyGameService(Context context) {
         this.context = context;
-        this.teamsListService = new TeamsListService(context);
-        this.partyGame = createPartyGame();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private PartyGame createPartyGame() throws PartyGameServiceException, DatabaseException {
+    public void createPartyGame() throws PartyGameServiceException, DatabaseException {
+        TeamsListService teamsListService = new TeamsListService(context);
+        setTeamsListService(teamsListService);
         PartyGame partyGame = new PartyGame();
+
         List<Team> teamsList = getTeamsList();
         partyGame.setTeamList(teamsList);
         List<Question> questionList = createQuestionList();
         partyGame.setQuestionList(questionList);
         partyGame.setFinished(false);
         partyGame.setDate(new Date());
-        return partyGame;
+        setPartyGame(partyGame);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void setTeamsListService(TeamsListService teamsListService) {
+        this.teamsListService = teamsListService;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private List<Team> getTeamsList() {
         return teamsListService.getTeams();
+    }
+
+    public PartyGame getPartyGame() {
+        return partyGame;
     }
 
     public TeamsListService getTeamsListService() {
@@ -75,6 +86,10 @@ public class PartyGameService {
             throw new PartyGameServiceException();
         }
         return gameLength;
+    }
+
+    public void setPartyGame(PartyGame partyGame) {
+        this.partyGame = partyGame;
     }
 
     private List<Question> createQuestionList() throws DatabaseException, PartyGameServiceException {
@@ -99,7 +114,7 @@ public class PartyGameService {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public boolean answerIsCorrect(String answer) {
-        String correctAnswer = getCurrentQuestion().getCorrectAnswer();
+        String correctAnswer = getCorrectAnswer();
         boolean answerIsCorrect = answer.equals(correctAnswer);
         if (answerIsCorrect) {
             teamsListService.addPointToTeam(getCurrentTeam());
@@ -128,7 +143,7 @@ public class PartyGameService {
     }
 
     public Question getCurrentQuestion() {
-        return partyGame.getQuestionList().get(partyGame.getNumberOfCurrentQuestion());
+        return getPartyGame().getQuestionList().get(partyGame.getNumberOfCurrentQuestion());
     }
 
     private Team getCurrentTeam() {

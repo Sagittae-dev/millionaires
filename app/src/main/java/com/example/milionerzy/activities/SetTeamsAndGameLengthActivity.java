@@ -30,6 +30,7 @@ public class SetTeamsAndGameLengthActivity extends AppCompatActivity {
     private SetGameLengthService setGameLengthService;
     private SetTeamsService setTeamsService;
     private ListView listOfGroups_ListView;
+    private ArrayAdapter<String> arrayAdapter;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -41,6 +42,7 @@ public class SetTeamsAndGameLengthActivity extends AppCompatActivity {
         setAllViews();
         setMethodForAddAndRemoveCycleButtons();
         setListOfGroups();
+        setAdapterForListView();
         setMethodForAddNewGroupButton();
         setMethodForSaveAndPlayButton();
     }
@@ -69,6 +71,11 @@ public class SetTeamsAndGameLengthActivity extends AppCompatActivity {
         saveAndPlayButton.setOnClickListener(b -> onSaveButtonClickListenerMethod());
     }
 
+    private void setAdapterForListView() {
+        List<String> teamsAsStrings = setTeamsService.getTeamsList();
+        arrayAdapter = new ArrayAdapter<>(this, R.layout.milionaires_list_item, teamsAsStrings);
+    }
+
     private void onSaveButtonClickListenerMethod() {
         SaveTeamsAndGameLengthService saveTeamsAndGameLengthService = new SaveTeamsAndGameLengthService(setTeamsService, setGameLengthService, this);
         try {
@@ -81,7 +88,7 @@ public class SetTeamsAndGameLengthActivity extends AppCompatActivity {
     private void setListOfGroups() {
         listOfGroups_ListView.setOnItemLongClickListener((adapterView, view, position, l) -> {
             List<String> listOfGroups = setTeamsService.removeGroupFromList(position);
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listOfGroups);
+            arrayAdapter = new ArrayAdapter<>(this, R.layout.milionaires_list_item, listOfGroups);
             listOfGroups_ListView.setAdapter(arrayAdapter);
             return true;
         });
@@ -91,7 +98,7 @@ public class SetTeamsAndGameLengthActivity extends AppCompatActivity {
     private void addNewGroupFromEditTextToList(EditText newGroupEditText) {
         try {
             List<String> listOfGroups = setTeamsService.addNewGroupFromEditTextToList(newGroupEditText);
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listOfGroups);
+            arrayAdapter = new ArrayAdapter<>(this, R.layout.milionaires_list_item, listOfGroups);
             listOfGroups_ListView.setAdapter(arrayAdapter);
             newGroupEditText.getText().clear();
             Log.i(TAG, "group added successfully" + listOfGroups.toString());

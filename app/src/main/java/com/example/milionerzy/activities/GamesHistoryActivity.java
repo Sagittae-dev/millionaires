@@ -35,7 +35,7 @@ public class GamesHistoryActivity extends AppCompatActivity {
         List<String> gamesList = getGamesHistoryList();
         Collections.reverse(gamesList);
         ListView gamesHistoryListView = findViewById(R.id.gamesHistoryList_ListView);
-        gamesHistoryListView.setAdapter(new ArrayAdapter<>(this, R.layout.games_history_list_item, gamesList));
+        gamesHistoryListView.setAdapter(new ArrayAdapter<>(this, R.layout.milionaires_list_item, gamesList));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.R)

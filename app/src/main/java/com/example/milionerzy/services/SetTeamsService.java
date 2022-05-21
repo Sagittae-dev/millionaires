@@ -75,6 +75,10 @@ public class SetTeamsService implements BaseService<List<String>> {
         return teamsList.size();
     }
 
+    public List<String> getTeamsList() {
+        return teamsList;
+    }
+
     @Override
     public void saveResultInSharedPreferences(List<String> toSave) {
         @SuppressLint("CommitPrefEdits") SharedPreferences.Editor sharedPreferencesEditor = context.getSharedPreferences(TEAMS_FROM_SP, Context.MODE_PRIVATE).edit();

@@ -17,6 +17,7 @@
         android:id="@+id/textViewQuestionContentPartyMode"
         android:layout_width="match_parent"
         android:layout_height="220dp"
+        android:layout_marginHorizontal="30dp"
         android:gravity="center"
         android:textSize="24sp" />
 

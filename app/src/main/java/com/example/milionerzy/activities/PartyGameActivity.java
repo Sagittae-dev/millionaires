@@ -37,6 +37,7 @@ public class PartyGameActivity extends AppCompatActivity {
     private void createPartyGame() {
         try {
             partyGameService = new PartyGameService(this);
+            partyGameService.createPartyGame();
         } catch (PartyGameServiceException | DatabaseException de) {
             Log.i("PartyGameActivity", "Unexpected problem with PartyGameService");
             finishActivity(0);

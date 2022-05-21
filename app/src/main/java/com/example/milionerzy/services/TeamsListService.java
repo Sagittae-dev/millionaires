@@ -17,19 +17,19 @@ import java.util.Set;
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class TeamsListService {
     private final Context context;
-    private List<Team> teams;
+    private final List<Team> teams;
 
     public TeamsListService(Context context) {
         this.context = context;
-        getTeamsFromSP();
+        teams = getTeamsFromSP();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void getTeamsFromSP() {
+    public List<Team> getTeamsFromSP() {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SetTeamsService.TEAMS_FROM_SP, Context.MODE_PRIVATE);
         Set<String> teamsSet = sharedPreferences.getStringSet(SetTeamsService.TEAMS_FROM_SP, new HashSet<>());
 
-        teams = convertFromStringSetToTeamList(teamsSet);
+        return convertFromStringSetToTeamList(teamsSet);
     }
 
     private List<Team> convertFromStringSetToTeamList(Set<String> teamsSet) {
